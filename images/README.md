@@ -1,3 +1,3 @@
 DIAGRAMS
 
-![OMT DIAGRAM] (https://docs.google.com/drawings/d/18Q9cB5GISaaDNbjDgrKiYn4eN0aG7qh1T7fGwof-NUQ/edit?usp=sharing)
+![Image of OMT Diagram](https://i.gyazo.com/6b32074347751aa4354e11be5aedf1d3.png)
