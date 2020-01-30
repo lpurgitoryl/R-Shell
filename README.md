@@ -4,6 +4,7 @@
 Nicole Garcia, 862111704   
 Hung Le, 862063377  
 
+---
 ## Introduction
 The R'Shell (command shell written in C++) will be able to preform the following:
 
@@ -19,21 +20,41 @@ The general structure of the commands avalible for input will be in this form.
 ```
 $ executable [argumentList] [connector] [executable] ...
 ```
-
+---
 ## OMT Diagram
+    
+![OMT Diagram](https://camo.githubusercontent.com/6a4636e9710696f703f4fd5e44e202030007db40/68747470733a2f2f692e6779617a6f2e636f6d2f36623332303734333437373531616134333534653131626535616564663164332e706e67)
 
-**after uploading the image, ill add a link here**
+---
 
 ## Class Description
-First thing after organizing 
-
+![Breakdown of classes to be impelented](https://camo.githubusercontent.com/296f638fb195719e6d6affd90adf4e1e82d9f604/68747470733a2f2f692e6779617a6f2e636f6d2f30653965393836316135393235666636363436356631356231643162356363332e706e67)
+ 
+1. Abstract `User` class
+    * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation).  
+2. `Interface_class`
+3. `Argument_class`
+    * description here 
+        * `User_commands`
+        *  `Connector_class`
+        * `Fork_class`
+        * `Exe_class`
+4. `User_commands`
+    * desctiption
+5. `Connector_class`
+    * description
+6. `Fork_class`
+    * description
+7. `Exe_class`
+    * description
+---
 ## Protoypes/Research 
 
 - `fork()`
 - `execvp()`
 - `waitpid()`
 - `Parse()`
-
+---
 ## Development and Testing Roadmap
 
 Below are some development issues.  
