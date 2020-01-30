@@ -51,7 +51,26 @@ $ executable [argumentList] [connector] [executable] ...
 ## Protoypes/Research 
 
 - `fork()`
+    * should give 2^n proccesses. Code below outputs the children and parents based on decremtation.
+```
+ for(int i = 0; i < value; i++){
+    fork();
+    cout << i << endl;
+    //value--;
+    }
+```
 - `execvp()`
+    * takes in char input arrays to execute commands. For example, the `cmd` array is the intial instruction, while the `argv` is the arguemnt beinf used.
+     * In use for the assigment the parser will need to identify the diffrent between the executable and the arguemnt, while using the connectors to preform the next task.
+
+```
+char *cmd = "echo";
+char *argv[5]; // this length can be changed 
+
+execvp(cmd, argv);
+
+```  
+
 - `waitpid()`
 - `Parse()`
 
@@ -61,7 +80,7 @@ Below are some development issues.
 [1. Develop the interface to take commands ](https://github.com/cs100/assignment-teamteam/issues/1#issue-556420534)   
 [2. Work on parsing for the commands](https://github.com/cs100/assignment-teamteam/issues/2#issue-556421562)  
 [3. test parsing](https://github.com/cs100/assignment-teamteam/issues/3#issue-556422455)  
-[4. work on basic commands such as `ls`, `mkdir`, and `exit`](https://github.com/cs100/assignment-teamteam/issues/4#issue-556422892)
+[4. work on basic commands such as `ls`, `mkdir`, and `exit`](https://github.com/cs100/assignment-teamteam/issues/4#issue-556422892)  
 [5. unit test on basic commands](https://github.com/cs100/assignment-teamteam/issues/5#issue-556423312)  
 [6. Connector functionality and testing ](https://github.com/cs100/assignment-teamteam/issues/6#issue-556424991)  
 [7. Retest basic commands with connectors](https://github.com/cs100/assignment-teamteam/issues/7#issue-556425469)  
