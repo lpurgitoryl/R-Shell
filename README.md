@@ -40,13 +40,13 @@ $ executable [argumentList] [connector] [executable] ...
         * `Fork_class`
         * `Exe_class`
 4. `User_commands`
-    * desctiption
+    
 5. `Connector_class`
-    * description
+    
 6. `Fork_class`
-    * description
+    
 7. `Exe_class`
-    * description
+    
 
 ## Protoypes/Research 
 
