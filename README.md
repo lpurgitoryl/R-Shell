@@ -34,11 +34,11 @@ $ executable [argumentList] [connector] [executable] ...
     * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation).  
 2. `Interface_class`
 3. `Argument_class`
-    * description here 
-        * `User_commands`
-        *  `Connector_class`
-        * `Fork_class`
-        * `Exe_class`
+    
+    * `User_commands`
+    *  `Connector_class`
+    * `Fork_class`
+    * `Exe_class`
 4. `User_commands`
     
 5. `Connector_class`
