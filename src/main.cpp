@@ -3,17 +3,17 @@
 string prompt();
 
 
-int main(int argc, char* argv){
+int main(){
 
     prompt();
 
-    Parser input(argc, argv);
+    Parser input( getline());
 
 }
 
 
 
 string prompt(){
-    cout << "$";
+    cout << "$ ";
 }
 
