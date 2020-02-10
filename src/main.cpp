@@ -6,14 +6,15 @@ string prompt();
 int main(){
 
     prompt();
-
-    Parser input( getline());
+    string userInput;
+    getline(cin, userInput);
+    Parser input(userInput);
 
 }
 
 
 
 string prompt(){
-    cout << "$ ";
+    cout << "\n$ ";
 }
 

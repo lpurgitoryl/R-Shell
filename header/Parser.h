@@ -11,15 +11,13 @@ using namespace std;
 
 class Parser{
     private:
-        int argInputs;
-        char* argValues;
+        std::string cmdInput;
         ARGBase* tokenize(char* Values);
         
 
     public:
-        Parser(int argc, char* argv ){
-            argInputs = argc;
-            argValues = argv;
+        Parser( std::string input){
+            cmdInput =input;
         }
 
         vector<ARGBase*> parse();
