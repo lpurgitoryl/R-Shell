@@ -13,6 +13,7 @@ class Parser{
     private:
         int argInputs;
         char* argValues;
+        ARGBase* tokenize(char* Values);
         
 
     public:
