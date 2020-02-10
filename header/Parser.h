@@ -12,7 +12,7 @@ using namespace std;
 class Parser{
     private:
         std::string cmdInput;
-        ARGBase* tokenize(char* Values);
+        ARGBase* tokenize( std::string vals,  vector <ARGBase*>& tokens);
         
 
     public:
