@@ -2,6 +2,13 @@
 #define _PARSER_
 
 #include "ARGBase.h"
+#include "user_arg.h"
+#include "Colon.h"
+#include "Or.h"
+#include "And.h"
+#include "User_Cmnds.h"
+#include "Connector.h"
+
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -21,7 +28,7 @@ class Parser{
         Parser( std::string input){
            cmdInput >> input;
         }
-        
+
         vector<ARGBase*> parse();
 
 };
