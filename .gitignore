@@ -37,3 +37,7 @@ test
 # CMake Temp Files
 CMakeCache.txt
 CMakeFiles
+
+#prototype and vscode fles
+.vscode/
+prototype/

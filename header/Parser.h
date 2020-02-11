@@ -1,5 +1,5 @@
-#ifndef _PARESER_
-#define _PARESER_
+#ifndef _PARSER_
+#define _PARSER_
 
 #include <ARGBase.h>
 #include <iostream>
