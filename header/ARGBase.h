@@ -1,7 +1,14 @@
+#ifndef __ARGBASE__
+#define __ARGBASE__
+
 
 #include <iostream>
 #include <string>
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 
+//PARENT CLASS TO CONNECTOR AND USER COMMANDS
 class ARGBase{
 
     protected:
@@ -30,7 +37,9 @@ class ARGBase{
         return ARGValue;
         
     }
+
     virtual bool can_execute() = 0;
+    virtual void evaluate() = 0;
 
 
     // void set_ARGName(std::string symbol){

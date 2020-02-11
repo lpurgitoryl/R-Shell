@@ -1,20 +1,23 @@
 #ifndef __CONNECTOR__
 #define __CONNECTOR__
 
-#include <Basemenu.h>
+#include <ARGBase.h>
 
-class Connector: public Basemenu {
-  
+//PARENT CLASS TO CONNECTOR CLASES OR AND COLON
+
+class Connector: public ARGBase {
+    protected:
+    ARGBase* first;
+    ARGBase* second;
+
     public:
       //  bool execute(){
         //    return prev && post ;
        // };
-    Connector(){};
-    Connector(Basemenu* left, Basemenu* right) : Basemenu(), first(left), second(right){}
+    Connector(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), first(left), second(right){}
+    //virtual void evaluate();
 	
-    private:
-	Basemenu* first;
-	Basemenu* second;
+    
 };
 
 

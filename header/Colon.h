@@ -1,19 +1,20 @@
-#ifndef Colon.h
-#define Colon.h
+#ifndef __COLON__
+#define __COLON__
 
+#include "Connector.h"
 
 class Colon : public Connector {
 
 	public:
-	Colon(Basemenu* left, Basemneu* right) : Connector (), first(left), second(right) {}
+	
+	Colon(ARGBase* left, ARGBase* right) : Connector(left, right, ";") {}
 
-
-	private:
-	Basemenu* first;
-	Basemenu* right;
-
+	void evaluate(){
+		
+	}
 };
 
-#endif //Colon.h
+
+#endif
 
 
