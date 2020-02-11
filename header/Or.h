@@ -8,7 +8,7 @@ class Or : public Connector {
 	public:
 	
 	Or(ARGBase* left, ARGBase* right) : Connector(left, right, "||") {}
-
+	Or(): Connector("||"){}
 	//void evaluate() {}
 };
 

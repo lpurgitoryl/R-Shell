@@ -8,7 +8,7 @@ class And : public Connector {
 	public:
 	
 	And(ARGBase* left, ARGBase* right) : Connector(left, right, "&&") {}
-
+	And(): Connector("&&"){}
 	//void evaluate(){
 		
 	

@@ -14,7 +14,9 @@ class Connector: public ARGBase {
       //  bool execute(){
         //    return prev && post ;
        // };
+
     Connector(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), first(left), second(right){}
+    Connector(std::string value): ARGBase(value){}
     //virtual void evaluate();
 	
     

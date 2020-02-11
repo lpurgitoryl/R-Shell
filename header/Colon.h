@@ -8,7 +8,7 @@ class Colon : public Connector {
 	public:
 	
 	Colon(ARGBase* left, ARGBase* right) : Connector(left, right, ";") {}
-
+	Colon(): Connector(";"){}
 	//void evaluate(){}
 };
 
