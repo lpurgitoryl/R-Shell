@@ -12,7 +12,7 @@ class User_Arg : public ARGBase {
     ARGBase* second;
 
 
-}
+};
 
 
 

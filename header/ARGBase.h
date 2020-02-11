@@ -35,7 +35,6 @@ class ARGBase{
     // }
      std::string getARGValue(){
         return ARGValue;
-        
     }
 
     virtual bool can_execute(int left, int right) = 0;
