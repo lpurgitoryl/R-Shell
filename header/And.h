@@ -1,20 +1,18 @@
-#ifndef AND.H
-#define AND.H
-
+#ifndef __AND__
+#define __AND__
 
 #include "Connector.h"
 
 class And : public Connector {
+
 	public:
-
-	And() {};
-	And(Basemenu* left, Basemenu* right) : Basemenu(),first(left),second(right) {}
-
 	
-
-	private:
-	Basemenu* first;
-	Basemenu* second;
-
+	And(ARGBase* left, ARGBase* right) : Connector(left, right, "&&") {}
+	And(): Connector("&&"){}
+	//void evaluate(){
+		
+	
 };
-#endif //ADD.H
+
+
+#endif

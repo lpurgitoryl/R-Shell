@@ -1,5 +1,5 @@
-#ifndef Or.h
-#define Or.h
+#ifndef __OR__
+#define __OR__
 
 #include "Connector.h"
 
@@ -7,14 +7,9 @@ class Or : public Connector {
 
 	public:
 	
-	Or(Basemenu* left, Basemenu* right) : Connector(), first(left), second(right) {}
-
-
-
-	private:
-	Basemenu* first;
-	Basemenu* second;
-
+	Or(ARGBase* left, ARGBase* right) : Connector(left, right, "||") {}
+	Or(): Connector("||"){}
+	//void evaluate() {}
 };
 
 
