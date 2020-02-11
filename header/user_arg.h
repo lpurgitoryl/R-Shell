@@ -2,7 +2,7 @@
 #define __USERARG__
 
 #include "ARGBase.h"
-
+//will do mkdir ls, -a, echo 
 class User_Arg : public ARGBase {
     public:
        User_Arg(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), first(left), second(right){}
@@ -12,7 +12,7 @@ class User_Arg : public ARGBase {
     ARGBase* second;
 
 
-}
+};
 
 
 
