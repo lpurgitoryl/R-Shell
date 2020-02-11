@@ -39,7 +39,7 @@ class ARGBase{
     }
 
     virtual bool can_execute() = 0;
-    virtual void evaluate() = 0;
+  //  virtual void evaluate() = 0;
 
 
     // void set_ARGName(std::string symbol){

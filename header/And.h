@@ -9,9 +9,9 @@ class And : public Connector {
 	
 	And(ARGBase* left, ARGBase* right) : Connector(left, right, "&&") {}
 
-	void evaluate(){
+	//void evaluate(){
 		
-	}
+	
 };
 
 

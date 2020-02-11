@@ -9,9 +9,7 @@ class Or : public Connector {
 	
 	Or(ARGBase* left, ARGBase* right) : Connector(left, right, "||") {}
 
-	void evaluate() {
-		
-	}
+	//void evaluate() {}
 };
 
 

@@ -21,7 +21,7 @@ class Parser{
         Parser( std::string input){
            cmdInput >> input;
         }
-
+        
         vector<ARGBase*> parse();
 
 };

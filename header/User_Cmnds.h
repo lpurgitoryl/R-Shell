@@ -6,8 +6,11 @@
 // will do fork, execvp, waitpid
 class User_Cmnds : public ARGBase {
     public:
-    virtual void execute();
     
+        User_Cmnds(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), first(left), second(right){}
+    protected:
+    ARGBase* first;
+    ARGBase* second;
 };
 
 
