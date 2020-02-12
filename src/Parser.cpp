@@ -29,6 +29,9 @@ ARGBase* split_up(){
 //     cout << userInput;
 //     cmdInput >> userInput;
 // }
+
+//for every space seprate the "words" into user cmds toekns and push to 
+//the vector
 void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
    do{
        string uptoSpace ;
@@ -46,13 +49,15 @@ vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
     
    // remove_newlineprompt();
-     tokenize(cmdInput, tokens) ;
-     string value;
+    tokenize(cmdInput, tokens) ;
 
-     for(int i = 0; i < tokens.size() ; i++){
-         value =  tokens.at(i)->getARGValue();
-         cout << value;
-         }
+     //works for prining values
+    //  string value;
+
+    //  for(int i = 0; i < tokens.size() ; i++){
+    //      value =  tokens.at(i)->getARGValue();
+    //     // cout << value;
+    //      }
 
     
 return tokens;

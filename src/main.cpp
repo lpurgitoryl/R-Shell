@@ -6,24 +6,25 @@ void prompt();
 
 int main(){
 
+    //starts prompt and gets line
     prompt();
     string userInput;
     getline(cin, userInput);
-    cout << userInput;
+    //cout << userInput;
     Parser input(userInput);
-    // Parser startMenu();
-    // startMenu().prompt();
 
+    //end of input
+    //start of token vector
+    vector<ARGBase*> tokens = input.parse();
 
+    for(int i = 0; i < tokens.size(); i++){
+        // ARGBase* toke = tokens.at(i);
+        // toke->getARGValue();
+        cout << tokens.at(i)->getARGValue();
 
-   
-
-
+    }
 }
 
 void prompt(){
     cout << "\n$ ";
-    string userInput;
-    getline(cin, userInput);
-    cout << userInput;
 }
