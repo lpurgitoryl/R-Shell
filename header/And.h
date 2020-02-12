@@ -11,8 +11,8 @@ class And : public Connector {
 	And(): Connector("&&"){}
 	//void evaluate(){
 	bool can_execute(int first, int second){
-	if (left->can_execute(first,second){ //first checks if left can execute
-		if(right->can_execute(first,second){ //thens checks right
+	if (left->can_execute(first,second)){ //first checks if left can execute
+		if(right->can_execute(first,second)){ //thens checks right
 			return true;
 		}
 	}

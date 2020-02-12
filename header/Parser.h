@@ -19,17 +19,23 @@ using namespace std;
 
 class Parser{
     private:
-       // std::string cmdInput;
-       istringstream cmdInput;
-        ARGBase* tokenize( std::string vals,  vector <ARGBase*>& tokens);
-        
+        //std::string cmdInput;
+        istringstream cmdInput;
+       // char* connectValues [";", "&&", "||"] ;
+
 
     public:
-        Parser( std::string input){
-           cmdInput >> input;
-        }
+        Parser(string input): cmdInput(input){ }
+      //  Parser(){}
 
         vector<ARGBase*> parse();
+        void find_connectors();
+        bool is_connectors();
+      //  void remove_newlineprompt(); // removes $ keeps first space
+        ARGBase* split_up();
+        void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);
+       // void prompt();
+        void create_tree_vector(vector <ARGBase*>& tokens);
 
 };
 
