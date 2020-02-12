@@ -22,6 +22,13 @@ ARGBase* split_up(){
     return 0;
 }
 
+// void Parser::prompt(){
+//     cout << "\n$ ";
+//     string userInput;
+//     getline(cin, userInput);
+//     cout << userInput;
+//     cmdInput >> userInput;
+// }
 void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
    do{
        string uptoSpace ;

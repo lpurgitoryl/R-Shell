@@ -26,6 +26,7 @@ class Parser{
 
     public:
         Parser(string input): cmdInput(input){ }
+      //  Parser(){}
 
         vector<ARGBase*> parse();
         void find_connectors();
@@ -33,7 +34,7 @@ class Parser{
       //  void remove_newlineprompt(); // removes $ keeps first space
         ARGBase* split_up();
         void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);
-
+       // void prompt();
         void create_tree_vector(vector <ARGBase*>& tokens);
 
 };

@@ -11,6 +11,9 @@ int main(){
     getline(cin, userInput);
     cout << userInput;
     Parser input(userInput);
+    // Parser startMenu();
+    // startMenu().prompt();
+
 
 
    
@@ -18,9 +21,9 @@ int main(){
 
 }
 
-
-
 void prompt(){
     cout << "\n$ ";
+    string userInput;
+    getline(cin, userInput);
+    cout << userInput;
 }
-
