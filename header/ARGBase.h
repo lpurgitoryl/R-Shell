@@ -14,9 +14,8 @@ class ARGBase{
     protected:
    // std::string ARGname;
     std::string ARGValue;
-    // ARGBase* left = 0;
-    // ARGBase* right = 0;
-    
+  //  ARGBase* left = 0;
+    //ARGBase* right = 0; 
     public:
 
     // ARGBase(std::string name, std::string value){
@@ -38,7 +37,7 @@ class ARGBase{
     }
 
     virtual bool can_execute(int left, int right) = 0;
-  //  virtual void evaluate() = 0;
+    //  virtual void evaluate() = 0;
 
 
     // void set_ARGName(std::string symbol){

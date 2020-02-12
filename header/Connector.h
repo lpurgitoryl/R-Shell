@@ -7,15 +7,15 @@
 
 class Connector: public ARGBase {
     protected:
-    ARGBase* first;
-    ARGBase* second;
+    ARGBase* left;
+    ARGBase* right;
 
     public:
       //  bool execute(){
         //    return prev && post ;
        // };
 
-    Connector(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), first(left), second(right){}
+    Connector(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), left(left), right(right){}
     Connector(std::string value): ARGBase(value){}
     //virtual void evaluate();
 	

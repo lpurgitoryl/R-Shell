@@ -1,6 +1,6 @@
 #include "../header/Parser.h"
 
-string prompt();
+void prompt();
 
 //MAIN MENU FOR USER
 
@@ -9,13 +9,18 @@ int main(){
     prompt();
     string userInput;
     getline(cin, userInput);
+    cout << userInput;
     Parser input(userInput);
+
+
+   
+
 
 }
 
 
 
-string prompt(){
+void prompt(){
     cout << "\n$ ";
 }
 

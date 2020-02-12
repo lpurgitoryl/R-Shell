@@ -6,3 +6,4 @@ ADD_EXECUTABLE(rshell
 	src/main.cpp
     src/Parser.cpp
 )
+set(CMAKE_BUILD_TYPE Debug)
