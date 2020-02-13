@@ -8,9 +8,10 @@ int main(){
 
     //starts prompt and gets line
     prompt();
+    //fork
+
     string userInput;
     getline(cin, userInput);
-    //cout << userInput;
     Parser input(userInput);
 
     //end of input
@@ -18,9 +19,7 @@ int main(){
     vector<ARGBase*> tokens = input.parse();
 
     for(int i = 0; i < tokens.size(); i++){
-        // ARGBase* toke = tokens.at(i);
-        // toke->getARGValue();
-        cout << tokens.at(i)->getARGValue();
+        cout << tokens.at(i)->getARGValue() << " ";
 
     }
 }
@@ -28,3 +27,12 @@ int main(){
 void prompt(){
     cout << "\n$ ";
 }
+
+
+//vector <base> tokens
+//echo hello
+//evecvp(Array, str_c( tokens.at(i)->getVaue() ))
+//
+//
+//
+//

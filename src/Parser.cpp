@@ -10,9 +10,31 @@
 
 // }
 
-bool Parser::is_connectors(){
-  return true;
-   
+void Parser::is_connectors(vector <ARGBase*>& tokens){
+  
+   for(int i = 0; i < tokens.size(); i++){
+       if( tokens.at(i)->getARGValue() == "&&" ){
+           ARGBase* blank = nullptr;
+           blank = tokens.at(i);
+           tokens.at(i) = new And();
+           delete blank;
+
+       }
+       else if( tokens.at(i)->getARGValue() == "||" ){
+           ARGBase* blank = nullptr;
+           blank = tokens.at(i);
+           tokens.at(i) = new Or();
+           delete blank;
+
+       }
+       else if( tokens.at(i)->getARGValue() == ";" ){
+           ARGBase* blank = nullptr;
+           blank = tokens.at(i);
+           tokens.at(i) = new Colon();
+           delete blank;
+
+       }
+    }
 }
  void Parser::find_connectors(){
      cout << "here" << endl;
@@ -33,34 +55,33 @@ ARGBase* split_up(){
 //for every space seprate the "words" into user cmds toekns and push to 
 //the vector
 void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
-   do{
-       string uptoSpace ;
+//      TESTER CODE AS PROOF OF CONCEPT FOR PRINTING  
+
+ do{
+       string uptoSpace;
        cmdInput >> uptoSpace;
-       if (uptoSpace !="$"){
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" ){
        tokens.push_back(new User_Cmnds(uptoSpace));
+       }
+       else if(uptoSpace == "&&"){
+           tokens.push_back(new And());
+       }
+       else if(uptoSpace == "||"){
+           tokens.push_back(new Or());
+       }
+       else if(uptoSpace == ";"){
+           tokens.push_back(new Colon());
        }
 
    }while (cmdInput);
-   
 
 }
 
 vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
     
-   // remove_newlineprompt();
     tokenize(cmdInput, tokens) ;
-
-     //works for prining values
-    //  string value;
-
-    //  for(int i = 0; i < tokens.size() ; i++){
-    //      value =  tokens.at(i)->getARGValue();
-    //     // cout << value;
-    //      }
-
     
 return tokens;
-
 
 }

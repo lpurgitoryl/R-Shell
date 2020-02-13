@@ -30,7 +30,7 @@ class Parser{
 
         vector<ARGBase*> parse();
         void find_connectors();
-        bool is_connectors();
+        void is_connectors(vector <ARGBase*>& tokens);
       //  void remove_newlineprompt(); // removes $ keeps first space
         ARGBase* split_up();
         void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);

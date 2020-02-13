@@ -7,8 +7,8 @@
 
 class Connector: public ARGBase {
     protected:
-    ARGBase* left;
-    ARGBase* right;
+    ARGBase* left = 0;
+    ARGBase* right = 0;
 
     public:
       //  bool execute(){
