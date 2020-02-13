@@ -13,7 +13,8 @@ class ARGBase{
 
     protected:
    // std::string ARGname;
-    std::string ARGValue;
+    std::string ARGValue;// c-tostring ()
+   // char* commands [100]; MAKE FUNCTION TO CONVERT TO CHAR
   //  ARGBase* left = 0;
     //ARGBase* right = 0; 
     public:
