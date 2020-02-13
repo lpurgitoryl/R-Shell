@@ -1,6 +1,20 @@
 #include "../header/Parser.h"
+#include <stdio.h> 
+#include <sys/types.h> 
+#include <unistd.h>
+#include <wait.h>
+#include <cstring>
+#include <iostream>
 
-void prompt();
+using namespace std;
+
+void prompt(){
+    std::cout << "\n$ ";
+}
+
+
+
+
 
 //MAIN MENU FOR USER
 
@@ -17,22 +31,20 @@ int main(){
     //end of input
     //start of token vector
     vector<ARGBase*> tokens = input.parse();
+    char** argv = input.create_aray(tokens);
 
-    for(int i = 0; i < tokens.size(); i++){
-        cout << tokens.at(i)->getARGValue() << " ";
 
-    }
+
+    // for(int i = 0; i < tokens.size(); i++){
+    //     cout << tokens.at(i)->getARGValue() << " ";
+    //    // char tochar[tokens.at(i)->getARGValue().size() + 1];
+    //    // strcpy(tochar, tokens.at(i)->getARGValue().c_str());
+    //     //*argv[i][i] = *tochar;
+    // }
+
+    
+  
+
 }
 
-void prompt(){
-    cout << "\n$ ";
-}
-
-
-//vector <base> tokens
-//echo hello
-//evecvp(Array, str_c( tokens.at(i)->getVaue() ))
-//
-//
-//
-//
+ 

@@ -1,16 +1,7 @@
 #include "../header/Parser.h"
 
-// void Parser::remove_newlineprompt(){
-//     cout << cmdInput << " : orignal input\n promnt gotten rid of";
-//     string firstTwo = cmdInput.substr(0,1);
-//     if( firstTwo == "$ "){
-//         cmdInput = cmdInput.substr(2);
-//     }
-//     cout << cmdInput << "\n";
 
-// }
-
-void Parser::is_connectors(vector <ARGBase*>& tokens){
+void Parser::find_connectors(vector <ARGBase*>& tokens){
   
    for(int i = 0; i < tokens.size(); i++){
        if( tokens.at(i)->getARGValue() == "&&" ){
@@ -36,21 +27,13 @@ void Parser::is_connectors(vector <ARGBase*>& tokens){
        }
     }
 }
- void Parser::find_connectors(){
-     cout << "here" << endl;
- }
+
 
 ARGBase* split_up(){
     return 0;
 }
 
-// void Parser::prompt(){
-//     cout << "\n$ ";
-//     string userInput;
-//     getline(cin, userInput);
-//     cout << userInput;
-//     cmdInput >> userInput;
-// }
+
 
 //for every space seprate the "words" into user cmds toekns and push to 
 //the vector
@@ -75,6 +58,17 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
 
    }while (cmdInput);
 
+}
+
+char** Parser::create_aray(vector <ARGBase*>& tokens){
+     char **argv = (char**) malloc(tokens.size() * sizeof(char*));
+    for(int i = 0; i < tokens.size(); i++){
+        cout << tokens.at(i)->getARGValue() << " ";
+        string value = tokens.at(i)->getARGValue();
+        char* tochar;
+        strcpy(tochar, value.c_str());
+        argv[i] = tochar;
+    }
 }
 
 vector<ARGBase*> Parser::parse(){
