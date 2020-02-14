@@ -1,66 +1,89 @@
 #include "../header/Parser.h"
 
-// void Parser::remove_newlineprompt(){
-//     cout << cmdInput << " : orignal input\n promnt gotten rid of";
-//     string firstTwo = cmdInput.substr(0,1);
-//     if( firstTwo == "$ "){
-//         cmdInput = cmdInput.substr(2);
-//     }
-//     cout << cmdInput << "\n";
 
-// }
+void Parser::find_connectors(vector <ARGBase*>& tokens){
+  
+   for(int i = 0; i < tokens.size(); i++){ //searches entire vector and either creates connector or user cmnd tokens
+       if( tokens.at(i)->getARGValue() == "&&" ){
+           ARGBase* blank = nullptr;
+           blank = tokens.at(i);
+           tokens.at(i) = new And();
+           delete blank;
 
-bool Parser::is_connectors(){
-  return true;
-   
+       }
+       else if( tokens.at(i)->getARGValue() == "||" ){
+           ARGBase* blank = nullptr;
+           blank = tokens.at(i);
+           tokens.at(i) = new Or();
+           delete blank;
+
+       }
+       else if( tokens.at(i)->getARGValue() == ";" ){
+           ARGBase* blank = nullptr;
+           blank = tokens.at(i);
+           tokens.at(i) = new Colon();
+           delete blank;
+
+       }
+    }
 }
- void Parser::find_connectors(){
-     cout << "here" << endl;
- }
+
 
 ARGBase* split_up(){
     return 0;
 }
 
-// void Parser::prompt(){
-//     cout << "\n$ ";
-//     string userInput;
-//     getline(cin, userInput);
-//     cout << userInput;
-//     cmdInput >> userInput;
-// }
+
 
 //for every space seprate the "words" into user cmds toekns and push to 
 //the vector
 void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
-   do{
-       string uptoSpace ;
+//creates token vector from input and then tokenizes to either connector or user cmnd
+ do{
+       string uptoSpace;
        cmdInput >> uptoSpace;
-       if (uptoSpace !="$"){
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != ""){
        tokens.push_back(new User_Cmnds(uptoSpace));
+       }
+       else if(uptoSpace == "&&"){
+           tokens.push_back(new And());
+       }
+       else if(uptoSpace == "||"){
+           tokens.push_back(new Or());
+       }
+       else if(uptoSpace == ";"){
+           tokens.push_back(new Colon());
        }
 
    }while (cmdInput);
-   
+
+}
+
+char** Parser::create_array(vector <ARGBase*>& tokens){
+    char ** cmnds = NULL;
+
+    cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
+    cout << tokens.size() << " this is token size \n";
+    cout << "before for loop" << endl;
+    for (int i = 0; i < tokens.size() ; i++){
+         cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
+         char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
+        strcpy(cmnds[i], vals);
+        cout << cmnds[i] << endl;
+    } 
+    cmnds[tokens.size()] = NULL; //creates end with null
+    
+    return cmnds;
 
 }
 
 vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
-    
-   // remove_newlineprompt();
+    // 
     tokenize(cmdInput, tokens) ;
-
-     //works for prining values
-    //  string value;
-
-    //  for(int i = 0; i < tokens.size() ; i++){
-    //      value =  tokens.at(i)->getARGValue();
-    //     // cout << value;
-    //      }
-
     
 return tokens;
 
-
 }
+
+

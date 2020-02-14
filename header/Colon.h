@@ -11,12 +11,13 @@ class Colon : public Connector {
 	Colon(): Connector(";"){}
 	//void evaluate(){}
 	bool can_execute(int first, int second){
-	if(left->can_execute(first,second)){
-       	        if(right->can_execute(first,second)){
-		return true;
-		}
-	}
-	return false;
+	// if(left->can_execute(first,second)){
+    //    	        if(right->can_execute(first,second)){
+	// 	return true;
+	// 	}
+	// }
+	// return false;
+	return true; //colon executes each side no matter what
 	}
 };
 
