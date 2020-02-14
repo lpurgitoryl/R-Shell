@@ -19,34 +19,34 @@ void eval(char** char_array);
 
 int main(){
     while(1){
-    //starts prompt and gets line
-    prompt();
-    //fork
+        //starts prompt and gets line
+        prompt();
+        //fork
 
-    string userInput;
-    getline(cin, userInput);
-    Parser input(userInput);
+        string userInput;
+        getline(cin, userInput);
+        Parser input(userInput);
 
-    // //end of input
-    // //start of token vector
+        // //end of input
+        // //start of token vector
 
 
-    vector<ARGBase*> tokens = input.parse();
-    
-    if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
-        cout << "exited shell" << endl;
-        exit(1);
-    }
+        vector<ARGBase*> tokens = input.parse();
+        
+        if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
+            cout << "exited shell" << endl;
+            exit(1);
+        }
 
-    for(int i = 0; i < tokens.size(); i++){
-        cout << "this is token number: " << i << " and the value is " << endl;
-        cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
-       
-    }
+        for(int i = 0; i < tokens.size(); i++){
+            cout << "this is token number: " << i << " and the value is " << endl;
+            cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+        
+        }
 
-    char** argv = input.create_array(tokens);
+        char** argv = input.create_array(tokens);
 
-    eval(argv);
+        eval(argv);
     }
 
 return 0;
