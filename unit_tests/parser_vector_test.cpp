@@ -2,10 +2,9 @@
 #include "gtest/gtest.h"
 
 TEST(parser_vector_test,oneInput ){
-    Parser parse("$ wass");
-    string val;
-    parse->cmndInput >> val;
-     EXPECT_EQ();
+	Parser parse("$ wass");
+	vector<ARGBase*> tokens = parse.parse();
+	EXPECT_EQ(tokens.at(0)->getARGValue(),"wass");
 
 }
 
