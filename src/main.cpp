@@ -18,7 +18,7 @@ void eval(char** char_array);
 //MAIN MENU FOR USER
 
 int main(){
-
+    while(1){
     //starts prompt and gets line
     prompt();
     //fork
@@ -32,7 +32,7 @@ int main(){
 
 
     vector<ARGBase*> tokens = input.parse();
-    //if exit 
+    
     if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
         cout << "exited shell" << endl;
         exit(1);
@@ -47,7 +47,7 @@ int main(){
     char** argv = input.create_array(tokens);
 
     eval(argv);
-    
+    }
 
 return 0;
 
