@@ -30,6 +30,8 @@ class Parser{
 
         vector<ARGBase*> parse();
         void find_connectors(vector <ARGBase*>& tokens);
+        int find_comment_index(vector <ARGBase*>& tokens);//returns -1 if none found
+        void remove_comment(vector <ARGBase*>& tokens, int index);//removes
         ARGBase* split_up();
         void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);
         void create_tree_vector(vector <ARGBase*>& tokens);
