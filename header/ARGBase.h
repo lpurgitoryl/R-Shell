@@ -27,6 +27,8 @@ class ARGBase{
     ARGBase( std::string value){
         //ARGname = name;
         ARGValue = value;
+       // std::cout << "\n" << ARGValue << " THIS IS constructor  FROM BASE" <<  std::endl;
+        
     }
 
     //  std::string getARGname(){
@@ -34,6 +36,7 @@ class ARGBase{
 
     // }
      std::string getARGValue(){
+       // std::cout  << "\n this is value called from base class and gts string\n " << ARGValue; 
         return ARGValue;
     }
 

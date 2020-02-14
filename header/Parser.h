@@ -33,7 +33,7 @@ class Parser{
         ARGBase* split_up();
         void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);
         void create_tree_vector(vector <ARGBase*>& tokens);
-        char** create_aray(vector <ARGBase*>& tokens);
+        char** create_array(vector <ARGBase*>& tokens);
 
 };
 

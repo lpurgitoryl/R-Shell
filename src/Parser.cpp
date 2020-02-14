@@ -60,15 +60,48 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
 
 }
 
-char** Parser::create_aray(vector <ARGBase*>& tokens){
-     char **argv = (char**) malloc(tokens.size() * sizeof(char*));
-    for(int i = 0; i < tokens.size(); i++){
-        cout << tokens.at(i)->getARGValue() << " ";
-        string value = tokens.at(i)->getARGValue();
-        char* tochar;
-        strcpy(tochar, value.c_str());
-        argv[i] = tochar;
-    }
+char** Parser::create_array(vector <ARGBase*>& tokens){
+    char * cmnds[tokens.size() - 1];
+    for (int i = 0; i < tokens.size() ; i++){
+        cmnds[i] = const_cast<char*>(tokens.at(i)->getARGValue().c_str());
+        cout << cmnds[i] << endl;
+    } 
+    cmnds[tokens.size()] = NULL;
+    
+    return cmnds;
+
+
+    //stop here
+
+    // cout << tokens.size() << " this is token size \n";
+    // //cout << "before for loop" << endl;
+    
+    //  char **argv = (char**) malloc(tokens.size() * sizeof(char*));
+
+    //  cout << "\n before for loop \n";
+
+    // for(int i = 0; i < tokens.size(); i++){
+    //     cout << "print index: " <<  i << endl;
+    //     cout << "outputting tokens: " ;//<< tokens.at(i) << " " << endl;
+    //    // cout << "using priv member " << ARGValue << endl;
+    //     cout << tokens.at(i)->getARGValue() << endl;
+    //     cout << "-------------------------------------" << endl;
+    //     string value = tokens.at(i)->getARGValue();
+    //     cout << value << endl;
+    //     cout << "---------------------------------" << endl;
+    //     cout << "this here is the test char" << endl;
+    //     char* test = const_cast<char*>(tokens.at(i)->getARGValue().c_str());
+    //    //char* tochar;
+    //    //strcpy(tochar, value.c_str());
+    //      argv[i] = test;
+    //    cout << "-------------------------------------" << endl;
+    //    cout << test << "here is value for test" <<endl;
+    // }
+    // for (int i = 0; i < 3 ; i++) {
+    //     cout << "here";
+    //     printf("%s ", argv[i]);
+    // }
+
 }
 
 vector<ARGBase*> Parser::parse(){
