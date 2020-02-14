@@ -43,7 +43,7 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
  do{
        string uptoSpace;
        cmdInput >> uptoSpace;
-       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" ){
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != ""){
        tokens.push_back(new User_Cmnds(uptoSpace));
        }
        else if(uptoSpace == "&&"){
