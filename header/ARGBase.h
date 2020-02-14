@@ -40,7 +40,7 @@ class ARGBase{
         return ARGValue;
     }
 
-    virtual bool can_execute(int left, int right) = 0;
+    virtual bool can_execute() = 0;
     //  virtual void evaluate() = 0;
 
 

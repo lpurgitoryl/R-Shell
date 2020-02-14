@@ -1,6 +1,6 @@
 #include "../header/Parser.h"
-#include "gtest/gtest.h"
-
+//#include "gtest/gtest.h"
+#include "../googletest/googletest/include/gtest/gtest.h"
 TEST(parser_vector_test,oneInput ){
 	Parser parse("$ wass");
 	vector<ARGBase*> tokens = parse.parse();
