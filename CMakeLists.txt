@@ -11,7 +11,7 @@ ADD_EXECUTABLE(rshell
     src/Parser.cpp
 )
 
-ADD_EXECUTABLE(test.
+ADD_EXECUTABLE(test
 	unit_tests/parser_vector_test.cpp
 	src/Parser.cpp
     #src/main.cpp
