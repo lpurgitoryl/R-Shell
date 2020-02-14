@@ -13,6 +13,7 @@ void prompt(){
     std::cout << "$ ";
 }
 
+void eval(char** char_array);
 
 //MAIN MENU FOR USER
 
@@ -33,6 +34,7 @@ int main(){
     vector<ARGBase*> tokens = input.parse();
     //if exit 
     if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
+        cout << "exited shell" << endl;
         exit(1);
     }
 
@@ -41,44 +43,35 @@ int main(){
         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
        
     }
-    // char** argv = input.create_aray(tokens);
 
-    // eval(argv);
+    char** argv = input.create_array(tokens);
 
-    //cout << argv[0] << endl;
-
+    eval(argv);
     
-// pid_t child;
-// int cstatus; /* Exit status of child. */
-// pid_t c; /* Pid of child to be returned by wait. */
-// char **args = input.create_array(tokens); /* List of arguments for the child process. */
-//cout << *args[0] << " " << *args[1] << endl;
-/* Set up arguments to run an exec in the child process. */
-/* (This example runs the "ls" program with "-l" option.) */
-//args[0] = "ls"; args[1] = "-l";
-//args[2] = NULL; /* Indicates the end of arguments. */
-// if ((child = fork()) == 0) { /* Child process. */
-// printf("Child: PID of Child = %ld\n", (long) getpid());
-// execvp(*args, args); /* arg[0] has the command name. */
-// /* If the child process reaches this point, then */
-// /* execvp must have failed. */
-// fprintf(stderr, "Child process could not do execvp.\n");
-// exit(1);
-// }
-// else { /* Parent process. */
-// if (child == (pid_t)(-1)) {
-// fprintf(stderr, "Fork failed.\n"); exit(1);
-// }
-// else {
-// c = wait(&cstatus); /* Wait for child to complete. */
-// printf("Parent: Child %ld exited with status = %d\n",
-// (long) c, cstatus);
-// }
-// }
+
 return 0;
 
 }
 
+void eval(char** args){
 
+    pid_t childProcess = fork();
+    int childStatus; //to be used by wait
+    pid_t childProcessID;
+    
+    if( childProcess < 0){
+        cout << "Child process could not be created\n";
+        exit(1); 
+    }
+    else if( childProcess == 0){
+        execvp(*args, args); //execute
+    }
+    else {
+        //wait child
+        childProcessID = wait(&childStatus); 
+        cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
+    }
+
+}
 
  

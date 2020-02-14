@@ -3,7 +3,7 @@
 
 void Parser::find_connectors(vector <ARGBase*>& tokens){
   
-   for(int i = 0; i < tokens.size(); i++){
+   for(int i = 0; i < tokens.size(); i++){ //searches entire vector and either creates connector or user cmnd tokens
        if( tokens.at(i)->getARGValue() == "&&" ){
            ARGBase* blank = nullptr;
            blank = tokens.at(i);
@@ -38,8 +38,7 @@ ARGBase* split_up(){
 //for every space seprate the "words" into user cmds toekns and push to 
 //the vector
 void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
-//      TESTER CODE AS PROOF OF CONCEPT FOR PRINTING  
-
+//creates token vector from input and then tokenizes to either connector or user cmnd
  do{
        string uptoSpace;
        cmdInput >> uptoSpace;
@@ -61,46 +60,20 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
 }
 
 char** Parser::create_array(vector <ARGBase*>& tokens){
-    char * cmnds[tokens.size() - 1];
+    char ** cmnds = NULL;
+
+    cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
+    cout << tokens.size() << " this is token size \n";
+    cout << "before for loop" << endl;
     for (int i = 0; i < tokens.size() ; i++){
-        cmnds[i] = const_cast<char*>(tokens.at(i)->getARGValue().c_str());
+         cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
+         char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
+        strcpy(cmnds[i], vals);
         cout << cmnds[i] << endl;
     } 
-    cmnds[tokens.size()] = NULL;
+    cmnds[tokens.size()] = NULL; //creates end with null
     
     return cmnds;
-
-
-    //stop here
-
-    // cout << tokens.size() << " this is token size \n";
-    // //cout << "before for loop" << endl;
-    
-    //  char **argv = (char**) malloc(tokens.size() * sizeof(char*));
-
-    //  cout << "\n before for loop \n";
-
-    // for(int i = 0; i < tokens.size(); i++){
-    //     cout << "print index: " <<  i << endl;
-    //     cout << "outputting tokens: " ;//<< tokens.at(i) << " " << endl;
-    //    // cout << "using priv member " << ARGValue << endl;
-    //     cout << tokens.at(i)->getARGValue() << endl;
-    //     cout << "-------------------------------------" << endl;
-    //     string value = tokens.at(i)->getARGValue();
-    //     cout << value << endl;
-    //     cout << "---------------------------------" << endl;
-    //     cout << "this here is the test char" << endl;
-    //     char* test = const_cast<char*>(tokens.at(i)->getARGValue().c_str());
-    //    //char* tochar;
-    //    //strcpy(tochar, value.c_str());
-    //      argv[i] = test;
-    //    cout << "-------------------------------------" << endl;
-    //    cout << test << "here is value for test" <<endl;
-    // }
-    // for (int i = 0; i < 3 ; i++) {
-    //     cout << "here";
-    //     printf("%s ", argv[i]);
-    // }
 
 }
 
