@@ -34,7 +34,23 @@ ARGBase* split_up(){
 }
 
 
+int Parser::find_comment_index(vector <ARGBase*>& tokens){
+    int hash = -1;
+     for(int i = 0; i < tokens.size(); i++){
+        if( tokens.at(i)->getARGValue() == "#" || tokens.at(i)->getARGValue().at(0) == '#'  ){
+            hash = i;
+            return hash;
+        }
+     }
+}
 
+ void Parser::remove_comment(vector <ARGBase*>& tokens, int index){
+     while(index >= 1){
+         cout << "Token to be removed at this index: " << index<< " " << tokens.at(index)->getARGValue() << endl;
+         tokens.pop_back();
+         index--;
+     }
+ }
 //for every space seprate the "words" into user cmds toekns and push to 
 //the vector
 void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
@@ -81,6 +97,21 @@ vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
     // 
     tokenize(cmdInput, tokens) ;
+    // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
+    //         cout << "this is token number: " << i << " and the value is " << endl;
+    //         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+        
+    //     }
+
+    int indexComment = find_comment_index(tokens);
+    if(indexComment != -1){
+      remove_comment(tokens, indexComment);
+    }
+    // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
+    //         cout << "this is token number: " << i << " and the value is " << endl;
+    //         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+        
+    //     }
     
 return tokens;
 
