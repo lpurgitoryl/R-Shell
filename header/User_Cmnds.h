@@ -6,6 +6,7 @@
 // will do fork, execvp, waitpid
 class User_Cmnds : public ARGBase {
     public:
+
             void set_left(ARGBase* lef){
             left = lef;
             }
@@ -19,6 +20,7 @@ class User_Cmnds : public ARGBase {
             ARGBase* get_left(){
             return this->left;
             }
+
 
          virtual bool can_execute(){
              return true;

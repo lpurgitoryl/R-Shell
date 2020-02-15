@@ -42,10 +42,12 @@ class ARGBase{
     }
 
     virtual bool can_execute() = 0;
+
     virtual void set_left(ARGBase* lef) = 0;
     virtual void set_right(ARGBase* righ) = 0;
     virtual ARGBase* get_left() = 0;
     virtual ARGBase* get_right() = 0;
+
     //  virtual void evaluate() = 0;
 
 
