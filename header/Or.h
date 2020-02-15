@@ -11,12 +11,13 @@ class Or : public Connector {
 	Or(): Connector("||"){}
 	//void evaluate() {}
 	bool can_execute(){
-	if (left->can_execute() && !right->can_execute()){ //checks if left works and right ddoesn't
+
 	return 0;
 	}
 	else if (right->can_execute(){ //checks if left doesn't work and right does
 		if(!left->can_execute(){
 		return 0;
+
 		}
 	}
 	else{

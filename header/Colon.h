@@ -11,6 +11,7 @@ class Colon : public Connector {
 	Colon(): Connector(";"){}
 	//void evaluate(){}
 	bool can_execute(){
+
 	if(left->can_execute(){
      	        if(right->can_execute(){
 		 	return 0;
@@ -21,6 +22,7 @@ class Colon : public Connector {
 	 return 1;
 	}
 	return 0; //colon executes each side no matter what
+
 	}
 };
 
