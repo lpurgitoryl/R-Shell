@@ -14,7 +14,7 @@ The R'Shell (command shell written in C++) will be able to preform the following
 3. Execute the appropriate commands using `fork`, `execvp`, and `waitpid`.
 4. Repeat the above until an exit command is executed.  
 
-This will be done by using **enter class brakedown here**.
+This will be done by using **enter class breakdown here**.
 
 The general structure of the commands avalible for input will be in this form.
 ```
@@ -33,13 +33,13 @@ $ executable [argumentList] [connector] [executable] ...
 For the OMT DIAGRAM, the fork class is currently combined with exec class
  
 1. Abstract `User` class
-    * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation).  
+    * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation). The abstract class has an execute class that the derived classes will use in order to determine whether a command will run or not.  
 2. `Interface_class`
 3. `Argument_class`
     
-    * `User_commands`
-    *  `Connector_class`
-    * `Exe_class`
+    * `User_commands` : this is whatever the user wants to run
+    *  `Connector_class` : any connector that a user will add to a line
+    * `Exe_class` : will do any syscalls
 4. `User_commands`
     	*will perform any commands that the user will put in
 5. `Connector_class`
@@ -83,7 +83,7 @@ Below are some development issues.
 [3. test parsing](https://github.com/cs100/assignment-teamteam/issues/3#issue-556422455)  
 [4. work on basic commands such as `ls`, `mkdir`, and `exit`](https://github.com/cs100/assignment-teamteam/issues/4#issue-556422892)  
 [5. unit test on basic commands](https://github.com/cs100/assignment-teamteam/issues/5#issue-556423312)  
-[6. Connector functionality and testing ](https://github.com/cs100/assignment-teamteam/issues/6#issue-556424991)  
+[6. Connector functionality and testing ](https://github.com/cs100/assignment-teamteam/issues/6#issue-556424991) 
 [7. Retest basic commands with connectors](https://github.com/cs100/assignment-teamteam/issues/7#issue-556425469)  
 [8. `fork()` functionality and testing](https://github.com/cs100/assignment-teamteam/issues/8#issue-556425788)  
 [9. `execvp()` and `waitpad()` functionality and testing](https://github.com/cs100/assignment-teamteam/issues/9#issue-556426529)  
