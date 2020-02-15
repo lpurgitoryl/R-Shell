@@ -12,11 +12,12 @@
 class ARGBase{
 
     protected:
+
    // std::string ARGname;
     std::string ARGValue;// c-tostring ()
    // char* commands [100]; MAKE FUNCTION TO CONVERT TO CHAR
-  //  ARGBase* left = 0;
-    //ARGBase* right = 0; 
+  //ARGBase* left = 0;
+  //ARGBase* right = 0; 
     public:
 
     // ARGBase(std::string name, std::string value){
@@ -41,6 +42,12 @@ class ARGBase{
     }
 
     virtual bool can_execute() = 0;
+
+    virtual void set_left(ARGBase* lef) = 0;
+    virtual void set_right(ARGBase* righ) = 0;
+    virtual ARGBase* get_left() = 0;
+    virtual ARGBase* get_right() = 0;
+
     //  virtual void evaluate() = 0;
 
 
