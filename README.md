@@ -29,6 +29,8 @@ $ executable [argumentList] [connector] [executable] ...
 
 ## Class Description
 ![Breakdown of classes to be impelented](https://camo.githubusercontent.com/296f638fb195719e6d6affd90adf4e1e82d9f604/68747470733a2f2f692e6779617a6f2e636f6d2f30653965393836316135393235666636363436356631356231643162356363332e706e67)
+
+For the OMT DIAGRAM, the fork class is currently combined with exec class
  
 1. Abstract `User` class
     * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation).  
@@ -37,15 +39,14 @@ $ executable [argumentList] [connector] [executable] ...
     
     * `User_commands`
     *  `Connector_class`
-    * `Fork_class`
     * `Exe_class`
 4. `User_commands`
-    
+    	*will perform any commands that the user will put in
 5. `Connector_class`
+	*will perform the logics for and, or, and semicolon, Currently cannot do logic for multiple arguments
     
-6. `Fork_class`
-    
-7. `Exe_class`
+6. `Exe_class`
+	*performs fork(), execvp(), and waitpid(), in its own header file
     
 
 ## Protoypes/Research 
