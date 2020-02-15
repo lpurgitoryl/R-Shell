@@ -1,6 +1,6 @@
 #!/bin/sh
 
-INPUTS=("ls" "ls -a" "ls -l")
+INPUTS= ("ls" "ls -a" "ls -l")
 
 ./rshell ${INPUTS[2]}
 ./rshell ${INPUTS[1]}

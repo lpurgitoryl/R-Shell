@@ -54,25 +54,5 @@ return 0;
 
 }
 
-void eval(char** args){
-
-    pid_t childProcess = fork();
-    int childStatus; //to be used by wait
-    pid_t childProcessID;
-    
-    if( childProcess < 0){
-        cout << "Child process could not be created\n";
-        exit(1); 
-    }
-    else if( childProcess == 0){
-        execvp(*args, args); //execute
-    }
-    else {
-        //wait child
-        childProcessID = wait(&childStatus); 
-        cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
-    }
-
-}
 
  

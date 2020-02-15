@@ -1,38 +1,19 @@
 #include "../header/Parser.h"
 
-
-void Parser::find_connectors(vector <ARGBase*>& tokens){
-  
-   for(int i = 0; i < tokens.size(); i++){ //searches entire vector and either creates connector or user cmnd tokens
-       if( tokens.at(i)->getARGValue() == "&&" ){
-           ARGBase* blank = nullptr;
-           blank = tokens.at(i);
-           tokens.at(i) = new And();
-           delete blank;
-
-       }
-       else if( tokens.at(i)->getARGValue() == "||" ){
-           ARGBase* blank = nullptr;
-           blank = tokens.at(i);
-           tokens.at(i) = new Or();
-           delete blank;
-
-       }
-       else if( tokens.at(i)->getARGValue() == ";" ){
-           ARGBase* blank = nullptr;
-           blank = tokens.at(i);
-           tokens.at(i) = new Colon();
-           delete blank;
-
-       }
-    }
-}
-
-
-ARGBase* split_up(){
-    return 0;
-}
-
+//  void Parser::create_tree_vector(vector <ARGBase*>& tokens){
+//     string temp;
+//     ARGBase* tree; //mew tree
+//     root = tree;
+//      for (int i = 0; i < tokens.size(); i++) {
+//          if(tokens.at(i)->getARGValue() != "&&" || tokens.at(i)->getARGValue() != "||" || tokens.at(i)->getARGValue() != ";"){//checks for any connectors;
+//              temp += tokens.at(i)->getARGValue();
+//          }
+//          else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";")
+//             if(root->get_left == nullptr){
+//                 root->set_left() = 
+//             }
+//          }
+//  }
 
 int Parser::find_comment_index(vector <ARGBase*>& tokens){
     int hash = -1;
@@ -79,11 +60,12 @@ char** Parser::create_array(vector <ARGBase*>& tokens){
     char ** cmnds = NULL;
 
     cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
+
     cout << tokens.size() << " this is token size \n";
     cout << "before for loop" << endl;
     for (int i = 0; i < tokens.size() ; i++){
-         cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
-         char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
+        cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
+        char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
         strcpy(cmnds[i], vals);
         cout << cmnds[i] << endl;
     } 
