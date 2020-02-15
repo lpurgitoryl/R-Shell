@@ -33,6 +33,7 @@ class Parser{
         int find_comment_index(vector <ARGBase*>& tokens);//returns -1 if none found
         void remove_comment(vector <ARGBase*>& tokens, int index);//removes
        // ARGBase* split_up();
+        int num_colons(vector <ARGBase*>& tokens);
         void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);
         //void create_tree_vector(vector <ARGBase*>& tokens);
         char** create_array(vector <ARGBase*>& tokens);

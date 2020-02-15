@@ -23,7 +23,7 @@ $ executable [argumentList] [connector] [executable] ...
 
 ## OMT Diagram
     
-![OMT Diagram](https://camo.githubusercontent.com/6a4636e9710696f703f4fd5e44e202030007db40/68747470733a2f2f692e6779617a6f2e636f6d2f36623332303734333437373531616134333534653131626535616564663164332e706e67)
+![OMT Diagram](https://github.com/cs100/assignment-teamteam/blob/master/images/OML%20DIagram.jpg?raw=true)
 
 
 

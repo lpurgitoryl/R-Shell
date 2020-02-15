@@ -6,6 +6,7 @@
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
+#include "../header/executor.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void prompt(){
     std::cout << "$ ";
 }
 
-void eval(char** char_array);
+//void eval(char** char_array);
 
 //MAIN MENU FOR USER
 
