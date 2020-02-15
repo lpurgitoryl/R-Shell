@@ -35,7 +35,7 @@ int main(){
         vector<ARGBase*> tokens = input.parse();
         
         if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
-            cout << "exited shell" << endl;
+           // cout << "exited shell" << endl;
             exit(1);
         }
 

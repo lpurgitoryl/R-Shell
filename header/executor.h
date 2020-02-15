@@ -38,7 +38,7 @@ void eval(char** args){
     else {
         //wait child
         childProcessID = wait(&childStatus); 
-        cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
+      //  cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
     }
     //return childStatus;
 }

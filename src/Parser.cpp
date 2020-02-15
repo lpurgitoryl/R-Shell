@@ -26,8 +26,10 @@ int Parser::find_comment_index(vector <ARGBase*>& tokens){
 }
 
  void Parser::remove_comment(vector <ARGBase*>& tokens, int index){
+     
+    index = (tokens.size() - 1) - 1;
      while(index >= 1){
-         cout << "Token to be removed at this index: " << index<< " " << tokens.at(index)->getARGValue() << endl;
+        // cout << "Token to be removed at this index: " << index<< " " << tokens.at(index)->getARGValue() << endl;
          tokens.pop_back();
          index--;
      }
@@ -61,13 +63,13 @@ char** Parser::create_array(vector <ARGBase*>& tokens){
 
     cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
 
-    cout << tokens.size() << " this is token size \n";
-    cout << "before for loop" << endl;
+   // cout << tokens.size() << " this is token size \n";
+    //cout << "before for loop" << endl;
     for (int i = 0; i < tokens.size() ; i++){
         cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
         char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
         strcpy(cmnds[i], vals);
-        cout << cmnds[i] << endl;
+      //  cout << cmnds[i] << endl;
     } 
     cmnds[tokens.size()] = NULL; //creates end with null
     
