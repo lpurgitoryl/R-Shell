@@ -25,6 +25,7 @@ TEST(ARGBaseObj, testingCOLONConnector ){
     Colon test = Colon();
     string val = test.getARGValue();
     EXPECT_EQ( val , ";");
+    
 }
 
 TEST(ARGBaseObj, testingUser ){
