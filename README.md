@@ -32,21 +32,22 @@ $ executable [argumentList] [connector] [executable] ...
 
 For the OMT DIAGRAM, the fork class is currently combined with exec class
  
-1. Abstract `User` class
-    * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation). The abstract class has an execute class that the derived classes will use in order to determine whether a command will run or not.  
-2. `Interface_class`
-3. `Argument_class`
-    
+1. Abstract `ARGBase` class
+    * This class will have virtual function that takes in a string as a basline for user input for the rest of the derived classes (composite pattern implementation). The abstract class has an execute class that the derived classes will use in order to determine whether a command will run or not. Has the functions getARGValue in order to obtain the string. Newly added setters and getters in order to set the pointers of it's children. Has a virtual execute function for the derived classes. 
+2. `Interface` : Contains or prompt for the user to run commands on.
     * `User_commands` : this is whatever the user wants to run
     *  `Connector_class` : any connector that a user will add to a line
     * `Exe_class` : will do any syscalls
+3. `Parser` 
+	*Parser will parse the user input into string that will then be stored in a vector called tokens that will hold ARGBase pointers. This is also how we change the string into **char in order to run execvp.
+
 4. `User_commands`
-    	*will perform any commands that the user will put in
+    	*will perform any commands that the user will put in. Has an execute function from its parent class to see if the user command is valid and will run.
 5. `Connector_class`
-	*will perform the logics for and, or, and semicolon, Currently cannot do logic for multiple arguments
+	*will perform the logics for and, or, and semicolon, Currently cannot do logic for multiple arguments, also makes a constructor with ARGBASE pointing left and right. Contains a execute function which is derived from its parent class.
     
 6. `Exe_class`
-	*performs fork(), execvp(), and waitpid(), in its own header file
+	*performs fork(), execvp(), and waitpid(), in its own header file. Has the function eval to perform these tasks.
     
 
 ## Protoypes/Research 
