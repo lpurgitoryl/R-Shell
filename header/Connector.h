@@ -17,6 +17,22 @@ class Connector: public ARGBase {
 
     Connector(ARGBase* left, ARGBase* right, std::string value) : ARGBase(value), left(left), right(right){}
     Connector(std::string value): ARGBase(value){}
+   
+
+     void set_left(ARGBase* lef){
+       left = lef;
+    }
+
+    void set_right(ARGBase* righ){
+       right = righ;
+    }
+
+   ARGBase* get_right(){
+       return this->right;
+    }
+   ARGBase* get_left(){
+       return this->left;
+    }
     //virtual void evaluate();
 	
     
