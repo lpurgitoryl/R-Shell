@@ -6,7 +6,7 @@
 // will do fork, execvp, waitpid
 class User_Cmnds : public ARGBase {
     public:
-         virtual bool can_execute(int left, int right){
+         virtual bool can_execute(){
              return true;
          }
         User_Cmnds(ARGBase* lef, ARGBase* righ, std::string value) : ARGBase(value), left(left), right(right){}

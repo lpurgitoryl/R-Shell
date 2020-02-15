@@ -53,7 +53,7 @@ return 0;
 
 }
 
-void eval(char** args){
+int eval(char** args){
 
     pid_t childProcess = fork();
     int childStatus; //to be used by wait
@@ -71,7 +71,7 @@ void eval(char** args){
         childProcessID = wait(&childStatus); 
         cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
     }
-
+//0 for success and 1 for failure	
 }
 
  
