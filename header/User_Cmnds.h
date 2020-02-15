@@ -6,9 +6,6 @@
 // will do fork, execvp, waitpid
 class User_Cmnds : public ARGBase {
     public:
-            virtual bool can_execute(int left, int right){
-                return true;
-            }
             void set_left(ARGBase* lef){
             left = lef;
             }
@@ -22,7 +19,11 @@ class User_Cmnds : public ARGBase {
             ARGBase* get_left(){
             return this->left;
             }
-            
+
+         virtual bool can_execute(){
+             return true;
+         }
+
         User_Cmnds(ARGBase* lef, ARGBase* righ, std::string value) : ARGBase(value), left(left), right(right){}
         User_Cmnds(std::string value): ARGBase(value){}
     protected:

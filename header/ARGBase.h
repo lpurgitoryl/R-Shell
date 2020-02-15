@@ -41,7 +41,7 @@ class ARGBase{
         return ARGValue;
     }
 
-    virtual bool can_execute(int left, int right) = 0;
+    virtual bool can_execute() = 0;
     virtual void set_left(ARGBase* lef) = 0;
     virtual void set_right(ARGBase* righ) = 0;
     virtual ARGBase* get_left() = 0;

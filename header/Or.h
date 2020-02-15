@@ -10,19 +10,19 @@ class Or : public Connector {
 	Or(ARGBase* left, ARGBase* right) : Connector(left, right, "||") {}
 	Or(): Connector("||"){}
 	//void evaluate() {}
-	bool can_execute(int first,int second){
-	if (left->can_execute(first,second) && !right->can_execute(first,second)){ //checks if left works and right ddoesn't
-	return true;
+	bool can_execute(){
+	if (left->can_execute() && !right->can_execute()){ //checks if left works and right ddoesn't
+	return 0;
 	}
-	else if (!right->can_execute(first,second)){ //checks if left doesn't work and right does
-		if(left->can_execute(first,second)){
-		return true;
+	else if (right->can_execute(){ //checks if left doesn't work and right does
+		if(!left->can_execute(){
+		return 0;
 		}
 	}
 	else{
-	return false;//checks if both are false
+	return 1;//checks if both are false
 	}
-	return true;
+	return 1;
 	}
 };
 
