@@ -19,20 +19,22 @@ int Parser::find_comment_index(vector <ARGBase*>& tokens){
     int hash = -1;
      for(int i = 0; i < tokens.size(); i++){
         if( tokens.at(i)->getARGValue() == "#" || tokens.at(i)->getARGValue().at(0) == '#'  ){
-            hash = i;
+            hash = i;// index of comment location
             return hash;
         }
      }
+     return hash;//retunrs -1 if no comment is found
 }
 
- void Parser::remove_comment(vector <ARGBase*>& tokens, int index){
+ void Parser::remove_comment(vector <ARGBase*>& tokens, int indexHash){
      
-    index = (tokens.size() - 1) - 1;
+    int index = tokens.size() - indexHash;
      while(index >= 1){
         // cout << "Token to be removed at this index: " << index<< " " << tokens.at(index)->getARGValue() << endl;
          tokens.pop_back();
          index--;
      }
+     return;
  }
 //for every space seprate the "words" into user cmds toekns and push to 
 //the vector
@@ -43,6 +45,7 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
        cmdInput >> uptoSpace;
        if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
        tokens.push_back(new User_Cmnds(uptoSpace));
+       cout << "value here is not a connector ->" << tokens.back()->getARGValue() << "<-" << endl;
        }
        else if(uptoSpace == "&&"){
            tokens.push_back(new And());
@@ -56,6 +59,7 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
 
    }while (cmdInput);
 
+    return;
 }
 
 char** Parser::create_array(vector <ARGBase*>& tokens){
@@ -88,6 +92,7 @@ vector<ARGBase*> Parser::parse(){
     //     }
 
     int indexComment = find_comment_index(tokens);
+    cout << "this is the comment location (-1 if NA):" << indexComment << endl; 
     if(indexComment != -1){
       remove_comment(tokens, indexComment);
     }
