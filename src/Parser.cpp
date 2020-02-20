@@ -85,11 +85,11 @@ vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
     // 
     tokenize(cmdInput, tokens) ;
-    // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
-    //         cout << "this is token number: " << i << " and the value is " << endl;
-    //         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+    for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
+            cout << "this is token number: " << i << " and the value is " << endl;
+            cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
-    //     }
+        }
 
     int indexComment = find_comment_index(tokens);
     cout << "this is the comment location (-1 if NA):" << indexComment << endl; 
