@@ -4,16 +4,19 @@
 #include "../googletest/googletest/include/gtest/gtest.h"
 TEST(parser_vector_test,oneInput ){
 	Parser parsse("$ wass");
+
 	vector<ARGBase*> tokens = parsse.parse();
 	EXPECT_EQ(tokens.at(0)->getARGValue(),"wass");
 	EXPECT_EQ(tokens.size(),1);
 }
+
 TEST(parser_vector_test,oneInpuWithNewline ){
 	Parser parsse("$ wass\n");
 	vector<ARGBase*> tokens = parsse.parse();
 	EXPECT_EQ(tokens.at(0)->getARGValue(),"wass");
 	EXPECT_EQ(tokens.size(),1);
 }
+
 TEST(parser_vector_test, twoInput ){
 	Parser parsse("$ echo hello");
 	vector<ARGBase*> tokens = parsse.parse();
@@ -36,14 +39,14 @@ TEST(parser_vector_test,threeInput ){
 	Parser parsse("$ echo sup my");
 	vector<ARGBase*> tokens = parsse.parse();
 
-	for (int i = 0; i < tokens.size() ; i++){
-        cout << tokens.at(i) << "<- this is token: " << i << endl;
-    } 
+	// for (int i = 0; i < tokens.size() ; i++){
+    //     cout << tokens.at(i) << "<- this is token: " << i << endl;
+    // } 
 	EXPECT_EQ(tokens.at(0)->getARGValue(),"echo");
 	EXPECT_EQ(tokens.at(1)->getARGValue(),"sup");
 	EXPECT_EQ(tokens.at(2)->getARGValue(),"my");
 
-	//EXPECT_EQ(tokens.size(),3);
+	EXPECT_EQ(tokens.size(),3);
 	
 
 }

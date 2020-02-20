@@ -91,11 +91,14 @@ vector<ARGBase*> Parser::parse(){
         
         }
 
+    cout << tokens.size() << "<- this is size" << endl;
     int indexComment = find_comment_index(tokens);
     cout << "this is the comment location (-1 if NA):" << indexComment << endl; 
     if(indexComment != -1){
       remove_comment(tokens, indexComment);
     }
+
+    cout << tokens.size() << "<- this is size" << endl;
     // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
     //         cout << "this is token number: " << i << " and the value is " << endl;
     //         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
