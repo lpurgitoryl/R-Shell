@@ -31,6 +31,9 @@ class Parser{
         vector<ARGBase*> parse();
         //void find_connectors(vector <ARGBase*>& tokens);
         int find_comment_index(vector <ARGBase*>& tokens);//returns -1 if none found
+      //  int find_quote_index(); //searches only userCmnd and gets rid of all quotes
+       // void remove_quotes(); // uses find quotes to get rid of them
+
         void remove_comment(vector <ARGBase*>& tokens, int index);//removes
        // ARGBase* split_up();
         int num_colons(vector <ARGBase*>& tokens);

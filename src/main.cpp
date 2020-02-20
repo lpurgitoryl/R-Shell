@@ -47,9 +47,9 @@ int main(){
         cout << "this is the token vector size: " << tokens.size() << endl;
 
 
-        //  char** argv = input.create_array(tokens);
+         char** argv = input.create_array(tokens);
 
-        //  eval(argv);
+         eval(argv);
     }
 
 return 0;
