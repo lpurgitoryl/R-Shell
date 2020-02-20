@@ -12,8 +12,19 @@ TEST(parser_vector_test2, oneConnectorINput ){
 TEST(parser_vector_test2, CommentInputSize){
 	Parser parsse("$ echo # wass up");
 	vector<ARGBase*> tokens = parsse.parse();
+
 	EXPECT_EQ(tokens.at(0)->getARGValue(),"echo");
 	EXPECT_EQ(tokens.size() , 1);
+	//EXPECT_EQ(tokens.at(2)->getARGValue(),"echo");
+
+}
+
+TEST(parser_vector_test2, CommentInputInsideValue){
+	Parser parsse("$ echo wass# up");
+	vector<ARGBase*> tokens = parsse.parse();
+	
+	EXPECT_EQ(tokens.at(0)->getARGValue(),"echo");
+	EXPECT_EQ(tokens.size() , 3);
 	//EXPECT_EQ(tokens.at(2)->getARGValue(),"echo");
 
 }
