@@ -1,18 +1,7 @@
 #include "../header/Parser.h"
 
 //  void Parser::create_tree_vector(vector <ARGBase*>& tokens){
-//     string temp;
-//     ARGBase* tree; //mew tree
-//     root = tree;
-//      for (int i = 0; i < tokens.size(); i++) {
-//          if(tokens.at(i)->getARGValue() != "&&" || tokens.at(i)->getARGValue() != "||" || tokens.at(i)->getARGValue() != ";"){//checks for any connectors;
-//              temp += tokens.at(i)->getARGValue();
-//          }
-//          else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";")
-//             if(root->get_left == nullptr){
-//                 root->set_left() = 
-//             }
-//          }
+   
 //  }
 
 int Parser::find_comment_index(vector <ARGBase*>& tokens){
@@ -61,6 +50,29 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
 
     return;
 }
+
+ void Parser::infix_to_postfix(vector <ARGBase*>& tokens){//doesn not take () yet
+     stack<ARGBase*> non_operators; //aka output
+     stack<ARGBase*> operators; // 
+
+    for(int i = 0; i < tokens.size(); i++){
+        //no white space is in the token vecotr
+        //checking if operator is present
+        //presedence for operators is the same except ; separates an and ()
+        if(tokens.at(i)->getARGValue().at(0) == '('){//checks for ()
+            operators.push(new Parenth("("));
+             
+        }
+        if(tokens.at(i)->is_operator() != true){ //meaning some command
+            non_operators.push(tokens.at(i));
+            cout << "this token was pushed to non_op queue:->" << tokens.at(i)->getARGValue() << "<-" << endl;
+        }
+
+
+    }
+
+
+ }
 
 char** Parser::create_array(vector <ARGBase*>& tokens){
     char ** cmnds = NULL;

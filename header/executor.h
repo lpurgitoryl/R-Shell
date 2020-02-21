@@ -33,11 +33,16 @@ void eval(char** args){
     }
     else if( childProcess == 0){
         
-        execvp(*args, args); //execute
+       execvp(*args, args); //execute
+        //while 
     }
     else {
         //wait child
-        childProcessID = wait(&childStatus); 
+        childProcessID = wait(&childStatus); //
+        // use wifext,
+      // if(  WIFEXITED(childStatus) > 0){
+
+       //}; //
       //  cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
     }
     //return childStatus;
