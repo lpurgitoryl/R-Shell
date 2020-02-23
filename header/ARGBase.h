@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stack>
+#include <queue>
 
 //PARENT CLASS TO CONNECTOR AND USER COMMANDS
 class ARGBase{

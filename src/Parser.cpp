@@ -1,19 +1,81 @@
 #include "../header/Parser.h"
+void Parser::infixtopostfix(vector<ARGBase*>& tokens){
+    //shunting yard
+    //(echo a || echo b)
+    stack<ARGBase*>signs;
+    queue<ARGBase*>hold;
+    ARGBase* temp;
+    for (int i = 0; i < tokens.size(); i++){
+        if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != ";" && tokens.at(i)->getARGValue() != "(" && tokens.at(i)->getARGValue() != ")" ){
+            //echo,a
+            hold.push(tokens.at(i)); 
+            // implement edge case here
+            if (i+1 != tokens.size()){
+            i++;
+            hold.push(tokens.at(i));
+           // cout << "here";
+            }
+        }
+        else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";" || tokens.at(i)->getARGValue() == "(" || tokens.at(i)->getARGValue() == ")"){
+            if (tokens.at(i)->getARGValue() == ")"){ //finding )
+                while(signs.top()->getARGValue() != "("){ //popping until (
+                    temp = signs.top();
+                    signs.pop();
+                    hold.push(temp);
+                    if (signs.top()->getARGValue() == "("){
+                        signs.pop(); //removing ( from the stack
+                    }
+                }
+            }
+         //cout << "here" << endl; //not reaching here
+        //implement removing parenthesis
+            signs.push(tokens.at(i));
+        }
+    }
+    //ls -a || echo a && echo b
+    //after the vector and empty and there are still stuff in the stack
+    if (!signs.empty()){
+        while(!signs.empty()){
+            temp = signs.top();
+            hold.push(temp);
+            signs.pop();
+           // cout << "jer" ;
+        }
+    }
+    //printing the value of queue to see
 
-//  void Parser::create_tree_vector(vector <ARGBase*>& tokens){
-//     string temp;
-//     ARGBase* tree; //mew tree
-//     root = tree;
-//      for (int i = 0; i < tokens.size(); i++) {
-//          if(tokens.at(i)->getARGValue() != "&&" || tokens.at(i)->getARGValue() != "||" || tokens.at(i)->getARGValue() != ";"){//checks for any connectors;
-//              temp += tokens.at(i)->getARGValue();
-//          }
-//          else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";")
-//             if(root->get_left == nullptr){
-//                 root->set_left() = 
+    while(!hold.empty()){
+        //cout << "here";
+
+        temp = hold.front();
+        cout << temp->getARGValue();
+        hold.pop();
+        //cout << "here";
+    }
+}
+void Parser::create_tree_vector(vector <ARGBase*>& tokens){
+// string command = "";
+// ARGBase* root;
+// ARGBase* temp;
+//      //ARGBase* tree; //new tree
+//      //root = tree;
+//       for (int i = 0; i < tokens.size(); i++) {
+//           if(tokens.at(i)->getARGValue() != "&&" || tokens.at(i)->getARGValue() != "||" || tokens.at(i)->getARGValue() != ";"){//checks for any connectors;
+//               if (command == "")
+//               command += tokens.at(i)->getARGValue();
+//               else{
+//                   command = command + " " + tokens.at(i)->getARGValue();
+//               }
+//           }
+//           else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";")
+//                  if (root == nullptr || root->get_left() == nullptr){
+//                      root = tokens.at(i);
+//                      User_Cmnds* com = new User_Cmnds(command);
+//                      root->set_left(com);    
+//                 }
 //             }
-//          }
-//  }
+//         }
+    }
 
 int Parser::find_comment_index(vector <ARGBase*>& tokens){
     int hash = -1;
@@ -43,7 +105,7 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
  do{
        string uptoSpace;
        cmdInput >> uptoSpace;
-       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n" && uptoSpace != "(" && uptoSpace != ")"){
        tokens.push_back(new User_Cmnds(uptoSpace));
        cout << "value here is not a connector ->" << tokens.back()->getARGValue() << "<-" << endl;
        }
@@ -55,6 +117,12 @@ void Parser::tokenize(istringstream& cmdInput  , vector <ARGBase*>& tokens ){
        }
        else if(uptoSpace == ";"){
            tokens.push_back(new Colon());
+       }
+       else if (uptoSpace == "("){
+           tokens.push_back(new LParen());
+       }
+       else if (uptoSpace == ")"){
+           tokens.push_back(new RParen());
        }
 
    }while (cmdInput);

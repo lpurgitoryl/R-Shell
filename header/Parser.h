@@ -7,6 +7,8 @@
 #include "And.h"
 #include "User_Cmnds.h"
 #include "Connector.h"
+#include "RParen.h"
+#include "LParen.h"
 
 #include <iostream>
 #include <vector>
@@ -38,7 +40,8 @@ class Parser{
        // ARGBase* split_up();
         int num_colons(vector <ARGBase*>& tokens);
         void tokenize(istringstream& cmdInput ,  vector <ARGBase*>& tokens);
-        //void create_tree_vector(vector <ARGBase*>& tokens);
+        void create_tree_vector(vector <ARGBase*>& tokens);
+        void infixtopostfix(vector <ARGBase*>&tokens);
         char** create_array(vector <ARGBase*>& tokens);
 
 };

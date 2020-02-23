@@ -39,17 +39,18 @@ int main(){
             exit(1);
         }
 
-        for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
-            cout << "this is token number: " << i << " and the value is " << endl;
-            cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+        // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
+        //     cout << "this is token number: " << i << " and the value is " << endl;
+        //     cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
-        }
-        cout << "this is the token vector size: " << tokens.size() << endl;
+        // }
+        // cout << "this is the token vector size: " << tokens.size() << endl;
 
 
-         char** argv = input.create_array(tokens);
+         //char** argv = input.create_array(tokens);
 
-         eval(argv);
+         //eval(argv);
+         input.infixtopostfix(tokens);
     }
 
 return 0;
