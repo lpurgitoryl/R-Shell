@@ -65,22 +65,25 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
        cout << "value here is not a connector ->" << uptoSpace << "<-" << endl;
        groupedValue += uptoSpace + " ";
 
-       cout << "this is the current string ->" << groupedValue << endl;
+       cout << "this is the current string ->" << groupedValue << "<-" << endl;
        }
 
        else if(uptoSpace == "&&"){
+           groupedValue.pop_back(); // gets rid of space at end
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new And());
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == "||"){
+           groupedValue.pop_back(); // gets rid of space at end
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new Or());
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == ";"){
+           groupedValue.pop_back(); // gets rid of space at end
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new Colon());
            groupedValue = ""; //resets string for use after cmnd
@@ -89,7 +92,8 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 
    }while (cmdInput);
     
-    if(!found_connector){
+    if(found_connector == false || groupedValue != ""){
+        groupedValue.pop_back(); // gets rid of space at end
         tokens.push_back(new User_Cmnds(groupedValue));
     }
 
