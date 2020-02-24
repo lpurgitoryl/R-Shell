@@ -100,44 +100,47 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
             }
             else{
                 groupedValue += uptoSpace + " ";
-                  cout << "\n this is the grouped value" << groupedValue << endl;
+                  cout << "\n this is the grouped value " << groupedValue << endl;
             }
 
        
        } 
     // here groupValue could be empty 
        else if(uptoSpace == "&&"){
-                cout << "\n this is the grouped value before pop" << groupedValue << endl;
+                cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
                 
-                if(!groupedValue.empty() )
+                if(!groupedValue.empty() ){
                 groupedValue.pop_back(); // gets rid of space at end
 
-                cout << "\n this is the grouped value after pop" << groupedValue << endl;
+                cout << "\n this is the grouped value after pop->" << groupedValue << "<-" <<endl;
            
-           tokens.push_back(new User_Cmnds(groupedValue));
+                tokens.push_back(new User_Cmnds(groupedValue));
+                }
            tokens.push_back(new And());
            cout << endl << tokens.back()->getARGValue() << endl;
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == "||"){
-            cout << "\n this is the grouped value before pop" << groupedValue << endl;
-            if(!groupedValue.empty() )
-               groupedValue.pop_back(); // gets rid of space at end
-            cout << "\n this is the grouped value after pop" << groupedValue << endl;
+            cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
+            if(!groupedValue.empty() ){
+                groupedValue.pop_back(); // gets rid of space at end
+                cout << "\n this is the grouped value after pop->" << groupedValue << "<-" << endl;
 
-           tokens.push_back(new User_Cmnds(groupedValue));
+                tokens.push_back(new User_Cmnds(groupedValue));
+            }
            tokens.push_back(new Or());
            cout << endl << tokens.back()->getARGValue() << endl;
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == ";"){
-           cout << "\n this is the grouped value before pop" << groupedValue << endl;
-            if(!groupedValue.empty() )
+           cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
+            if(!groupedValue.empty() ){
                groupedValue.pop_back(); // gets rid of space at end
-             cout << "\n this is the grouped value after pop" << groupedValue << endl;
-           tokens.push_back(new User_Cmnds(groupedValue));
+             cout << "\n this is the grouped value after pop->" << groupedValue << "<-" << endl;
+             tokens.push_back(new User_Cmnds(groupedValue));
+            }
            tokens.push_back(new Colon());
            cout << endl << tokens.back()->getARGValue() << endl;
            groupedValue = ""; //resets string for use after cmnd
@@ -145,14 +148,23 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
        }
 
    }while (cmdInput);
-    
-    if(found_connector == false ){
-        if(!groupedValue.empty() )
+    cout << "\n -----------------------------------------this is after parsing -----------------------\n" ;
+    if( (found_connector == false) || (!groupedValue.empty()) ){
+
+        if(!groupedValue.empty()){
+        cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
         groupedValue.pop_back(); // gets rid of space at end
+        cout << "\n this is the grouped value after pop->" << groupedValue << "<-" << endl;
         tokens.push_back(new User_Cmnds(groupedValue));
+        }
         cout << "\n this is after all cmnds are proceesed \n";
         cout << endl << tokens.back()->getARGValue() << endl;
     }
+    // else if(!groupedValue.empty()){
+    //     tokens.push_back(new User_Cmnds(groupedValue));
+    //     cout << "\n this is after all cmnds are proceesed \n";
+    //     cout << endl << tokens.back()->getARGValue() << endl;
+    // }
 
     return;
 }
