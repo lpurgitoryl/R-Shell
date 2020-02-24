@@ -75,7 +75,7 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
                     cout << "-------------parantheis check ( end---------------\n";
                     cout << "this is the current string ->" << groupedValue << "<-" << endl;
             }
-            if(uptoSpace.at(uptoSpace.size() - 1 ) == ')'){//checks last index
+            else if(uptoSpace.at(uptoSpace.size() - 1 ) == ')'){//checks last index
                 cout << "-------------parantheis check )---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
                 uptoSpace.pop_back(); //delets last char which is the )...now equal to string with out )
                 groupedValue += uptoSpace;
@@ -86,28 +86,36 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
             // groupedValue = "";//reset for next input after )
                 cout << "-------------parantheis check )---------------\nthis is the value of the input AFTER->" << uptoSpace << "<-" << endl;
                 cout << "-------------parantheis check ) end---------------\n";
+                found_connector = true;
             }
-    //    groupedValue += uptoSpace + " ";
+            else{
+                groupedValue += uptoSpace + " ";
+            }
 
        
        } 
-
+    // here groupValue could be empty 
        else if(uptoSpace == "&&"){
-           groupedValue.pop_back(); // gets rid of space at end
+           
+               groupedValue.pop_back(); // gets rid of space at end
+           
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new And());
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == "||"){
-           groupedValue.pop_back(); // gets rid of space at end
+          
+               groupedValue.pop_back(); // gets rid of space at end
+           
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new Or());
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == ";"){
-           groupedValue.pop_back(); // gets rid of space at end
+           
+               groupedValue.pop_back(); // gets rid of space at end
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new Colon());
            groupedValue = ""; //resets string for use after cmnd
