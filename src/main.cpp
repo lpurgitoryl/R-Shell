@@ -34,22 +34,22 @@ int main(){
 
         vector<ARGBase*> tokens = input.parse();
         
-        if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
+        if( (tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit") ){
            // cout << "exited shell" << endl;
             exit(1);
         }
 
-        for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
-            cout << "this is token number: " << i << " and the value is " << endl;
-            cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+        // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
+        //     cout << "this is token number: " << i << " and the value is " << endl;
+        //     cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
-        }
+        // }
         cout << "this is the token vector size: " << tokens.size() << endl;
 
 
-         char** argv = input.create_array(tokens);
+        //  char** argv = input.create_array(tokens);
 
-         eval(argv);
+        //  eval(argv);
     }
 
 return 0;
