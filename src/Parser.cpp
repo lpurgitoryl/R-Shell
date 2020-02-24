@@ -2,6 +2,7 @@
 void Parser::infixtopostfix(vector<ARGBase*>& tokens){
     //shunting yard
     //(echo a || echo b)
+    vector<ARGBase*>vals;
     stack<ARGBase*>signs;
     queue<ARGBase*>hold;
     ARGBase* temp;
@@ -44,15 +45,36 @@ void Parser::infixtopostfix(vector<ARGBase*>& tokens){
     }
     //printing the value of queue to see
 
-    while(!hold.empty()){
-        //cout << "here";
+    // while(!hold.empty()){
+    //     //cout << "here";
 
+    //     temp = hold.front();
+    //     cout << temp->getARGValue();
+    //     hold.pop();
+    //     //cout << "here";
+    // }
+    // storing values into a vector
+    while(!hold.empty()){
         temp = hold.front();
-        cout << temp->getARGValue();
+        vals.push_back(temp);
         hold.pop();
-        //cout << "here";
     }
+    //printing the  vector
+
+    for (int i = 0; i <vals.size(); i++){
+        cout << vals.at(i)->getARGValue();
+    }
+    cout << endl;
+
+    for (int i = 0; i <vals.size(); i++){
+        reverse(vals.begin(), vals.end());
+    }
+    for (int i = 0; i <vals.size(); i++){
+        cout << vals.at(i)->getARGValue();
+    }
+    //reversing a vector
 }
+
 void Parser::create_tree_vector(vector <ARGBase*>& tokens){
 // string command = "";
 // ARGBase* root;
