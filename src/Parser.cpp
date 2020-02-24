@@ -53,7 +53,7 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
 
 void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tokens){
 
-    cout << "-------------------------------------------------\n This is grouping tokens" << endl;
+    cout << "-------------------------------------------------\n This is grouping tokens\n" << endl;
     string groupedValue = "";
     bool found_connector = false; //flag in case of no connector
     do{
@@ -66,10 +66,15 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 
        //check for parenthesis
             if(uptoSpace.at(0) == '('){ //checks right ( at start of string
-                    cout << "-------------parantheis check (---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
+                    cout << "\n-------------parantheis check (---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
                     string noParenthesis = uptoSpace.substr(1, string::npos ); //copys untill end of string with out the (
+                    cout << "\n this is the string with no  Parenthestis ->" << noParenthesis << "<-\n";
+
                     uptoSpace = noParenthesis; //now equal to string with out (
                     groupedValue += uptoSpace + " ";
+
+                    cout << "\n this is the grouped value" << groupedValue << endl;
+
                     tokens.push_back(new Parenth("("));
                     cout << "-------------parantheis check (---------------\nthis is the value of the input AFTER->" << uptoSpace << "<-" << endl;
                     cout << "-------------parantheis check ( end---------------\n";
@@ -79,6 +84,9 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
                 cout << "-------------parantheis check )---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
                 uptoSpace.pop_back(); //delets last char which is the )...now equal to string with out )
                 groupedValue += uptoSpace;
+
+                  cout << "\n this is the grouped value" << groupedValue << endl;
+
                 tokens.push_back(new User_Cmnds(groupedValue));
                 cout << "this is the current string ->" << groupedValue << "<-" << endl;
                 groupedValue = "";
@@ -90,34 +98,43 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
             }
             else{
                 groupedValue += uptoSpace + " ";
+                  cout << "\n this is the grouped value" << groupedValue << endl;
             }
 
        
        } 
     // here groupValue could be empty 
        else if(uptoSpace == "&&"){
-           
-               groupedValue.pop_back(); // gets rid of space at end
+                cout << "\n this is the grouped value before pop" << groupedValue << endl;
+                
+                groupedValue.pop_back(); // gets rid of space at end
+
+                cout << "\n this is the grouped value after pop" << groupedValue << endl;
            
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new And());
+           cout << endl << tokens.back()->getARGValue() << endl;
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == "||"){
-          
+            cout << "\n this is the grouped value before pop" << groupedValue << endl;
                groupedValue.pop_back(); // gets rid of space at end
-           
+            cout << "\n this is the grouped value after pop" << groupedValue << endl;
+
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new Or());
+           cout << endl << tokens.back()->getARGValue() << endl;
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
        else if(uptoSpace == ";"){
-           
+           cout << "\n this is the grouped value before pop" << groupedValue << endl;
                groupedValue.pop_back(); // gets rid of space at end
+             cout << "\n this is the grouped value after pop" << groupedValue << endl;
            tokens.push_back(new User_Cmnds(groupedValue));
            tokens.push_back(new Colon());
+           cout << endl << tokens.back()->getARGValue() << endl;
            groupedValue = ""; //resets string for use after cmnd
            found_connector = true;
        }
@@ -127,6 +144,8 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
     if(found_connector == false || groupedValue != ""){
         groupedValue.pop_back(); // gets rid of space at end
         tokens.push_back(new User_Cmnds(groupedValue));
+        cout << "\n this is after all cmnds are proceesed \n"
+        cout << endl << tokens.back()->getARGValue() << endl;
     }
 
     return;
