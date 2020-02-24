@@ -63,6 +63,11 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
        if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
        //tokens.push_back(new User_Cmnds(uptoSpace));
        cout << "value here is not a connector ->" << uptoSpace << "<-" << endl;
+
+       //check for parenthesis
+    //    if(uptoSpace.at(0) == "("){
+
+    //    }
        groupedValue += uptoSpace + " ";
 
        cout << "this is the current string ->" << groupedValue << "<-" << endl;
