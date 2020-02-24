@@ -65,20 +65,32 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
        cout << "value here is not a connector ->" << uptoSpace << "<-" << endl;
 
        //check for parenthesis
-       if(uptoSpace.at(0) == '('){ //checks right
-           string noParenthesis = uptoSpace.substr(1, string::npos ); //copys untill end of string with out the (
-           uptoSpace = noParenthesis; //now equal to string with out (
-           tokens.push_back(new Parenth("("));
-       }
-        else if(uptoSpace.back() == '('){
-            
-            uptoSpace.pop_back(); //delets last char which is the )now equal to string with out (
-            tokens.push_back(new Parenth(")"));
-        }
-       groupedValue += uptoSpace + " ";
+            if(uptoSpace.at(0) == '('){ //checks right ( at start of string
+                    cout << "-------------parantheis check (---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
+                    string noParenthesis = uptoSpace.substr(1, string::npos ); //copys untill end of string with out the (
+                    uptoSpace = noParenthesis; //now equal to string with out (
+                    groupedValue += uptoSpace + " ";
+                    tokens.push_back(new Parenth("("));
+                    cout << "-------------parantheis check (---------------\nthis is the value of the input AFTER->" << uptoSpace << "<-" << endl;
+                    cout << "-------------parantheis check ( end---------------\n";
+                    cout << "this is the current string ->" << groupedValue << "<-" << endl;
+            }
+            if(uptoSpace.at(uptoSpace.size() - 1 ) == ')'){//checks last index
+                cout << "-------------parantheis check )---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
+                uptoSpace.pop_back(); //delets last char which is the )...now equal to string with out )
+                groupedValue += uptoSpace;
+                tokens.push_back(new User_Cmnds(groupedValue));
+                cout << "this is the current string ->" << groupedValue << "<-" << endl;
+                groupedValue = "";
+                tokens.push_back(new Parenth(")") );
+            // groupedValue = "";//reset for next input after )
+                cout << "-------------parantheis check )---------------\nthis is the value of the input AFTER->" << uptoSpace << "<-" << endl;
+                cout << "-------------parantheis check ) end---------------\n";
+            }
+    //    groupedValue += uptoSpace + " ";
 
-       cout << "this is the current string ->" << groupedValue << "<-" << endl;
-       }
+       
+       } 
 
        else if(uptoSpace == "&&"){
            groupedValue.pop_back(); // gets rid of space at end
