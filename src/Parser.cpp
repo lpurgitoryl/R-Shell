@@ -2,10 +2,16 @@
 void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     //shunting yard
     //(echo a || echo b)
+
+
+    
     vector<ARGBase*>vals;
     stack<ARGBase*>signs;
     queue<ARGBase*>hold;
     ARGBase* temp;
+
+    
+    //shunting yard
     for (int i = 0; i < tokens.size(); i++){
         if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != ";" && tokens.at(i)->getARGValue() != "(" && tokens.at(i)->getARGValue() != ")" ){
             //echo,a
@@ -18,19 +24,22 @@ void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
             //}
         }
         else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";" || tokens.at(i)->getARGValue() == "(" || tokens.at(i)->getARGValue() == ")"){
+            //cout << "here" << endl;
             if (tokens.at(i)->getARGValue() == ")"){ //finding )
-                while(signs.top()->getARGValue() != "("){ //popping until (
+                while(signs.top()->getARGValue() != "("){ //popping until ( //logic here wrong
                     temp = signs.top();
                     signs.pop();
                     hold.push(temp);
-                    if (signs.top()->getARGValue() == "("){
+                }
+                if (signs.top()->getARGValue() == "("){
                         signs.pop(); //removing ( from the stack
                     }
-                }
             }
          //cout << "here" << endl; //not reaching here
         //implement removing parenthesis
+            else{
             signs.push(tokens.at(i));
+            }
         }
     }
     //ls -a || echo a && echo b
