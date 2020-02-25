@@ -34,7 +34,7 @@ int main(){
 
         vector<ARGBase*> tokens = input.parse();
         
-        if(tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit"){
+        if( (tokens.size() == 1 && tokens.at(0)->getARGValue() == "exit") ){
            // cout << "exited shell" << endl;
             exit(1);
         }
@@ -50,7 +50,13 @@ int main(){
          //char** argv = input.create_array(tokens);
 
          //eval(argv);
-         input.infixtopostfix(tokens);
+         input.infix_to_postfix(tokens);
+       // cout << "this is the token vector size: " << tokens.size() << endl;
+
+
+        //  char** argv = input.create_array(tokens);
+
+        //  eval(argv);
     }
 
 return 0;

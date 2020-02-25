@@ -50,6 +50,7 @@ class ARGBase{
     virtual void set_right(ARGBase* righ) = 0;
     virtual ARGBase* get_left() = 0;
     virtual ARGBase* get_right() = 0;
+    virtual bool is_operator() = 0;
 
     //  virtual void evaluate() = 0;
 
