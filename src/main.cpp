@@ -13,7 +13,14 @@ using namespace std;
 void prompt(){
     std::cout << "$ ";
 }
-
+void printInOrder(ARGBase* cur){
+    if (cur == nullptr){
+        return;
+    }
+    printInOrder(cur->get_left());
+    cout << cur->getARGValue();
+    printInOrder(cur->get_right());
+}
 //void eval(char** char_array);
 
 //MAIN MENU FOR USER
@@ -50,10 +57,12 @@ int main(){
          //char** argv = input.create_array(tokens);
 
          //eval(argv);
-         input.infix_to_postfix(tokens);
+
+        vector<ARGBase*> temp = input.infix_to_postfix(tokens);
        // cout << "this is the token vector size: " << tokens.size() << endl;
-
-
+        input.create_tree_vector(temp);
+        ARGBase* start = temp.at(0);
+        printInOrder(start);
         //  char** argv = input.create_array(tokens);
 
         //  eval(argv);

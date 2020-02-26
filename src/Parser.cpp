@@ -1,21 +1,41 @@
 #include "../header/Parser.h"
-void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
+vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     //shunting yard
-    //(echo a || echo b)
-
-
-    
+    //(echo a && echo b) || (echo c && echo d)
+    //(echo d && echo c) || (echo b && echo a)
+    //how to deal with semicolons in terms of executor,
+    //use another vector that passes in first to reverse the vector that checks the parenthesis if ) then ( if ( then )
+    // ||&&echo a echo b && echo c echo d
+    // (echo a && echo b) || echo c
+    // echo c || (echo b && echo a)
+    // || && echo a echo b echo c
     vector<ARGBase*>vals;
+    vector<ARGBase*>mirror;
     stack<ARGBase*>signs;
     queue<ARGBase*>hold;
     ARGBase* temp;
-
-    
+    //mirror the vector
+    for (int i = tokens.size()-1; i >= 0; i--){
+        if (tokens.at(i)->getARGValue() == ")"){
+            mirror.push_back(new Parenth("("));
+        }
+        else if (tokens.at(i)->getARGValue() == "("){
+            mirror.push_back(new Parenth(")"));
+        }
+        else{
+            mirror.push_back(tokens.at(i));
+        }
+    }
+    for (int i = 0 ; i < mirror.size(); i++){
+        cout << mirror.at(i)->getARGValue();
+    }
     //shunting yard
-    for (int i = 0; i < tokens.size(); i++){
-        if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != ";" && tokens.at(i)->getARGValue() != "(" && tokens.at(i)->getARGValue() != ")" ){
+    // ((echo a || echo b) && echo c)
+    // (echo c && (echo b || echo a))
+    for (int i = 0; i < mirror.size(); i++){
+        if (mirror.at(i)->getARGValue() != "||" && mirror.at(i)->getARGValue() != "&&" && mirror.at(i)->getARGValue() != ";" && mirror.at(i)->getARGValue() != "(" && mirror.at(i)->getARGValue() != ")" ){
             //echo,a
-            hold.push(tokens.at(i)); 
+            hold.push(mirror.at(i)); 
             // implement edge case here
            // if (i+1 != tokens.size()){
             //i++;
@@ -23,9 +43,9 @@ void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
            // cout << "here";
             //}
         }
-        else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";" || tokens.at(i)->getARGValue() == "(" || tokens.at(i)->getARGValue() == ")"){
-            //cout << "here" << endl;
-            if (tokens.at(i)->getARGValue() == ")"){ //finding )
+        else if (mirror.at(i)->getARGValue() == "&&" || mirror.at(i)->getARGValue() == "||" || mirror.at(i)->getARGValue() == ";" || mirror.at(i)->getARGValue() == "(" || mirror.at(i)->getARGValue() == ")"){
+
+            if (mirror.at(i)->getARGValue() == ")"){ //finding )
                 while(signs.top()->getARGValue() != "("){ //popping until ( //logic here wrong
                     temp = signs.top();
                     signs.pop();
@@ -38,7 +58,7 @@ void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
          //cout << "here" << endl; //not reaching here
         //implement removing parenthesis
             else{
-            signs.push(tokens.at(i));
+            signs.push(mirror.at(i));
             }
         }
     }
@@ -46,9 +66,14 @@ void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     //after the vector and empty and there are still stuff in the stack
     if (!signs.empty()){
         while(!signs.empty()){
+            // if (signs.top()->getARGValue() == "(" || signs.top()->getARGValue() == ")"){
+            //     cout << "error";
+            // }
+            //else{
             temp = signs.top();
             hold.push(temp);
             signs.pop();
+           // }
            // cout << "jer" ;
         }
     }
@@ -69,7 +94,10 @@ void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
         hold.pop();
     }
     //printing the  vector
-
+    // (echo a || echo b) && echo c
+    // echo c && (echo b || echo a)
+    cout << endl;
+    cout << "here" << endl;
     for (int i = 0; i <vals.size(); i++){
         cout << vals.at(i)->getARGValue();
     }
@@ -82,9 +110,54 @@ void Parser::infix_to_postfix(vector<ARGBase*>& tokens){
         cout << vals.at(i)->getARGValue();
     }
     //reversing a vector
+    return vals;
 }
 
 void Parser::create_tree_vector(vector <ARGBase*>& tokens){
+    //(echo a && echo b) || (echo c && echo d)
+    //(echo d && echo c) || (echo b && echo a)
+    //|| && echo a echo b && echo c echo d
+    //((echo a || echo b) && echo c)
+    // &&|| echo a echo b echo c
+    //(echo a || echo b) && (echo c || echo d) && (echo e || echo f)
+    //&& && || echo a echo b || echo c echo d || echo e echo f
+    ARGBase* root;
+    ARGBase* temp;
+    ARGBase* prev;
+    for (int i = 0; i < tokens.size(); i++){
+        root = tokens.at(0); //first value will be an index
+        if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||"){ //checking for the second index to be a connector or not
+            if(root->get_left() == NULL){
+                root->set_left(tokens.at(i));
+                temp = root->get_left(); //setting our temp to left in order to make tree
+            }
+            //moving to left if next command is an operand and moving temp along left side of tree
+            else if (temp->get_left() == NULL){ 
+                temp->set_left(tokens.at(i));
+                prev = temp;
+                temp = temp->get_left();
+            }
+            else if (root->get_right() == NULL){
+                root->set_right(tokens.at(i));
+                temp = root->get_right(); // setting temp to right
+            }
+        }
+        else if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != "&&"){
+            if (temp->get_left() == NULL){
+                temp->set_left(tokens.at(i));
+            }
+            else if (temp->get_right() == NULL){
+                temp->set_right(tokens.at(i));
+                temp = prev;
+            }
+        }
+    }
+
+
+
+
+
+
 // string command = "";
 // ARGBase* root;
 // ARGBase* temp;
