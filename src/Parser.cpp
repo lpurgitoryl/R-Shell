@@ -332,7 +332,9 @@ char** Parser::create_array(vector <ARGBase*>& tokens){
     return cmnds;
 
 }
+void Parser::create_tree_vector(vector <ARGBase*>& tokens){
 
+}
 vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
     // 
