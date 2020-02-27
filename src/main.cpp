@@ -13,7 +13,14 @@ using namespace std;
 void prompt(){
     std::cout << "$ ";
 }
-
+void printInOrder(ARGBase* cur){
+    if (cur == nullptr){
+        return;
+    }
+    printInOrder(cur->get_left());
+    cout << cur->getARGValue();
+    printInOrder(cur->get_right());
+}
 //void eval(char** char_array);
 
 //MAIN MENU FOR USER
@@ -44,18 +51,25 @@ int main(){
         //     cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
         // }
-      //  cout << "this is the token vector size: " << tokens.size() << endl;
 
-        //HUNGS CODE HERE to test pre fix
-         vector<ARGBase*> temp = input.infix_to_postfix(tokens);
+        // cout << "this is the token vector size: " << tokens.size() << endl;
+
+
+         //char** argv = input.create_array(tokens);
+
+         //eval(argv);
+
+        vector<ARGBase*> temp = input.infix_to_postfix(tokens);
        // cout << "this is the token vector size: " << tokens.size() << endl;
        cout << endl;
-       for (int i = 0; i < temp.size() ; i++){
-           cout << "this is the prefix string->" << temp.at(i)->getARGValue()
-           << "<-\n" ;
-       }
-      
-        //////////////////
+    //    for (int i = 0; i < temp.size() ; i++){
+    //        cout << temp.at(i)->getARGValue();
+    //    }
+    //stack<ARGBase*>pull;
+        input.create_tree_vector(temp);
+       // ARGBase* start = temp.at(0);
+     //  printInOrder(root);
+
         //  char** argv = input.create_array(tokens);
 
         //  eval(argv);
