@@ -14,6 +14,20 @@ vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     stack<ARGBase*>signs;
     queue<ARGBase*>hold;
     ARGBase* temp;
+    int left_paren = 0;
+    int right_paren = 0;
+    for (int i = 0; i < tokens.size(); i++){ //checking for correct number of parenthesis, will not run if there is a missing parenthesis
+        if (tokens.at(i)->getARGValue() == "("){
+            left_paren++;
+        }
+        else if (tokens.at(i)->getARGValue() == ")"){
+            right_paren++;
+        }
+    }
+    if (left_paren != right_paren){
+        cout << "missing parenthesis" << endl;
+        exit(1);
+    }
     //mirror the vector
     for (int i = tokens.size()-1; i >= 0; i--){
         if (tokens.at(i)->getARGValue() == ")"){
@@ -103,12 +117,12 @@ vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     }
     cout << endl;
 
-    for (int i = 0; i <vals.size(); i++){
-        reverse(vals.begin(), vals.end());
-    }
-    for (int i = 0; i <vals.size(); i++){
-        cout << vals.at(i)->getARGValue();
-    }
+    // for (int i = 0; i <vals.size(); i++){
+    //     reverse(vals.begin(), vals.end());
+    // }
+    // for (int i = 0; i <vals.size(); i++){
+    //     cout << vals.at(i)->getARGValue();
+    // }
     //reversing a vector
     return vals;
 }
@@ -128,113 +142,68 @@ void Parser::create_tree_vector(vector <ARGBase*>& tokens){
     // &&|| echo a echo b echo c
     //(echo a || echo b) && (echo c || echo d) && (echo e || echo f)
     //&& && || echo a echo b || echo c echo d || echo e echo f
-    // here
-    // ARGBase* root;
-    // ARGBase* temp;
-    // ARGBase* prev;
-    // for (int i = 0; i < tokens.size(); i++){
-    //     root = tokens.at(0); //first value will be an index
-    //     cout << "here" << endl;
-    //     if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||"){ //checking for the second index to be a connector or not
-    //         if(root->get_left() == NULL){
-    //             root->set_left(tokens.at(i));
-    //             temp = root->get_left(); //setting our temp to left in order to make tree
-    //         }
-    //         //moving to left if next command is an operand and moving temp along left side of tree
-    //         else if (temp->get_left() == NULL){ 
-    //             temp->set_left(tokens.at(i));
-    //             prev = temp;
-    //             temp = temp->get_left();
-    //         }
-    //         else if (root->get_right() == NULL){
-    //             root->set_right(tokens.at(i));
-    //             temp = root->get_right(); // setting temp to right
-    //         }
-    //     }
-    //     else if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != "&&"){
-
-    //         if(temp->getARGValue() == "||" || temp->getARGValue() == "&&"){
-    //             if (temp->get_left() == NULL){
-    //             temp->set_left(tokens.at(i));
-    //         }
-    //         else if (temp->get_right() == NULL){
-    //             temp->set_right(tokens.at(i));
-    //             temp = prev;
-    //         }
-    //         }
-
-    //     }
-    // }
+   
     cout << endl;
- for (int i = 0; i < tokens.size(); i++){
-     cout << tokens.at(i)->getARGValue();
- }
-// cout << "here";
-    ARGBase* root;
-    ARGBase* parent;
+//  for (int i = 0; i < tokens.size(); i++){
+//      cout << tokens.at(i)->getARGValue();
+//  }
+    //ARGBase* root;
+    ARGBase* temp;
     ARGBase* temp_l;
     ARGBase* temp_r;
-   // cout <<  "here";
-    //parent = root->get_left();
-    if (tokens.size() == 1){
-    root = tokens.at(0);
-    }
-    else{
-        root = tokens.at(0);
-        for (int i = 1; i < tokens.size(); i++){
-            if (tokens.at(i)->getARGValue() != "||" || tokens.at(i)->getARGValue() == "&&"){
-            if(root->get_left() == NULL){
-                root->set_left(tokens.at(i));
-            }
-            else if (root->get_right() == NULL){
-                root->set_right(tokens.at(i));
-            }
-             }
-        }
-    }
-    // for (int i = 0; i < tokens.size(); i++) {
-    //     if (i = 0) {
-    //         root = tokens.at(0); //first value will be an index
-    //     }
-        // else if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() == "&&)"){
-        //     cout << "here";
-        // }
-        // else if (tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != "&&"){
-        //     if(root->get_left() == NULL){
-        //         root->set_left(tokens.at(i));
-        //     }
-        //     else if (root->get_right() == NULL){
-        //         root->set_right(tokens.at(i));
-        //     }
-        // }
+  
+    stack<ARGBase*>tree;
     
-    //printInOrder(root);
-    cout << "here" << endl;
-    cout << root->getARGValue();
-    cout << root->get_left()->getARGValue();
-    cout << root->get_right()->getARGValue();
-// string command = "";
-// ARGBase* root;
-// ARGBase* temp;
-//      //ARGBase* tree; //new tree
-//      //root = tree;
-//       for (int i = 0; i < tokens.size(); i++) {
-//           if(tokens.at(i)->getARGValue() != "&&" || tokens.at(i)->getARGValue() != "||" || tokens.at(i)->getARGValue() != ";"){//checks for any connectors;
-//               if (command == "")
-//               command += tokens.at(i)->getARGValue();
-//               else{
-//                   command = command + " " + tokens.at(i)->getARGValue();
-//               }
-//           }
-//           else if (tokens.at(i)->getARGValue() == "&&" || tokens.at(i)->getARGValue() == "||" || tokens.at(i)->getARGValue() == ";")
-//                  if (root == nullptr || root->get_left() == nullptr){
-//                      root = tokens.at(i);
-//                      User_Cmnds* com = new User_Cmnds(command);
-//                      root->set_left(com);    
-//                 }
-//             }
-//         }
-    }
+    for (int i = 0; i < tokens.size(); i++){
+        if(tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != "||"){
+            tree.push(tokens.at(i));
+        }
+        else if (i == tokens.size()-1){
+            temp = tokens.at(i);
+            temp_l = tree.top();
+            tree.pop();
+            temp_r = tree.top();
+            tree.pop();
+            temp->set_right(temp_r);
+            temp->set_left(temp_l);
+            tree.push(temp);
+            //root = tree.top();
+        }
+        else{
+            temp = tokens.at(i);
+            temp_l = tree.top();
+            tree.pop();
+           // if(!tree.empty()){
+            temp_r = tree.top();
+            tree.pop();
+            temp->set_right(temp_r);
+           // }
+            temp->set_left(temp_l);
+            tree.push(temp);
+        }
+    }    
+    root = tree.top();
+    printInOrder(root);
+    //echo a || echo b && echo c
+    //&&||echo a echo b echo c
+    // echo a || echo b
+    //|| echo a echo b
+    //|| && echo a echo b && echo c echo d
+    //postfix
+    //echo d echo c || echo b echo a || &&
+    // || echo c echo d
+    //echo b echo a ||
+    //echo a && (echo b || echo c)
+    //echo c echo b || echo a &&
+    
+
+
+    // cout << "here" << endl;
+    // root = tree.top();
+    // cout << root->getARGValue();
+    // cout << root->get_left()->getARGValue();
+    // cout << root->get_right()->getARGValue();
+}
 
 int Parser::find_comment_index(vector <ARGBase*>& tokens){
     int hash = -1;
