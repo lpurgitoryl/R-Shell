@@ -17,10 +17,12 @@
 #include <stdio.h>
 #include <stack>
 #include <queue>
+#include <sys/stat.h>
 
 using namespace std;
 
 class Parser{
+
     private:
         //std::string cmdInput;
         istringstream cmdInput;
