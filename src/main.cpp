@@ -60,9 +60,13 @@ int main(){
 
         vector<ARGBase*> temp = input.infix_to_postfix(tokens);
        // cout << "this is the token vector size: " << tokens.size() << endl;
+       cout << endl;
+       for (int i = 0; i < temp.size() ; i++){
+           cout << temp.at(i)->getARGValue();
+       }
         input.create_tree_vector(temp);
-        ARGBase* start = temp.at(0);
-        printInOrder(start);
+       // ARGBase* start = temp.at(0);
+       // printInOrder(start);
         //  char** argv = input.create_array(tokens);
 
         //  eval(argv);
