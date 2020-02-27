@@ -44,9 +44,18 @@ int main(){
         //     cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
         // }
-        cout << "this is the token vector size: " << tokens.size() << endl;
+      //  cout << "this is the token vector size: " << tokens.size() << endl;
 
-
+        //HUNGS CODE HERE
+         vector<ARGBase*> temp = input.infix_to_postfix(tokens);
+       // cout << "this is the token vector size: " << tokens.size() << endl;
+       cout << endl;
+       for (int i = 0; i < temp.size() ; i++){
+           cout << "this is the prefix string->" << temp.at(i)->getARGValue()
+           << "<-\n" ;
+       }
+      
+        //////////////////
         //  char** argv = input.create_array(tokens);
 
         //  eval(argv);
