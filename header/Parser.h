@@ -28,7 +28,7 @@ class Parser{
         //std::string cmdInput;
         istringstream cmdInput;
        // char* connectValues [";", "&&", "||"] ;
-        ARGBase* root = nullptr;
+        ARGBase* root = nullptr;//used for tree
 
     public:
         Parser(string input): cmdInput(input){ }
