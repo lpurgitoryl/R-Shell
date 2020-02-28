@@ -144,7 +144,7 @@ void Parser::create_tree_vector(vector <ARGBase*>& tokens){
     //(echo a || echo b) && (echo c || echo d) && (echo e || echo f)
     //&& && || echo a echo b || echo c echo d || echo e echo f
    
-    cout << endl;
+   // cout << endl;
 //  for (int i = 0; i < tokens.size(); i++){
 //      cout << tokens.at(i)->getARGValue();
 //  }
