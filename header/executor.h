@@ -50,7 +50,7 @@ int numSpaces = 0;
             cout << "this is temp value->" << temp << "<-\n";
         }
         else{
-            if(index <= numSpaces) {  
+            if(index < numSpaces) {  
                  cout << "this is index " <<  index << endl;
                 cmnds[index] = (char*) malloc( temp.size() * sizeof(char)); //allocates space for string @ index
                 char * vals = const_cast<char*>(  temp.c_str());
@@ -65,6 +65,8 @@ int numSpaces = 0;
         }
       //  cout << cmnds[i] << endl;
     } 
+
+    cout << "\nIndex after loop allocation " << index << endl;
 
     if(temp != ""){
         cout << "this is index after loop\n" << index << endl;
@@ -144,14 +146,16 @@ void runCommands(ARGBase* root){//tokens are in tree form
 
 }
 
-// void runTest(string test){
-//     if(test.at(0) == '['){
-//         //stats
-           // struct stat file;
-            //stat(test, file);
-//     }
+void runTest(string test){
+    for(int i = 0; i < test.size() ; i++){
 
-// }
+
+
+
+        
+    }
+
+} 
 
 
 
