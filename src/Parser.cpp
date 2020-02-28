@@ -382,24 +382,24 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 
 
 
-char** Parser::create_array(vector <ARGBase*>& tokens){
-    char ** cmnds = NULL;
+// char** Parser::create_array(vector <ARGBase*>& tokens){
+//     char ** cmnds = NULL;
 
-    cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
+//     cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
 
-   // cout << tokens.size() << " this is token size \n";
-    //cout << "before for loop" << endl;
-    for (int i = 0; i < tokens.size() ; i++){
-        cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
-        char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
-        strcpy(cmnds[i], vals);
-      //  cout << cmnds[i] << endl;
-    } 
-    cmnds[tokens.size()] = NULL; //creates end with null
+//    // cout << tokens.size() << " this is token size \n";
+//     //cout << "before for loop" << endl;
+//     for (int i = 0; i < tokens.size() ; i++){
+//         cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
+//         char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
+//         strcpy(cmnds[i], vals);
+//       //  cout << cmnds[i] << endl;
+//     } 
+//     cmnds[tokens.size()] = NULL; //creates end with null
     
-    return cmnds;
+//     return cmnds;
 
-}
+// }
 
 vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
