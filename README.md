@@ -47,7 +47,7 @@ For the OMT DIAGRAM, the fork class is currently combined with exec class
 	*will perform the logics for and, or, and semicolon, Currently cannot do logic for multiple arguments, also makes a constructor with ARGBASE pointing left and right. Contains a execute function which is derived from its parent class.
     
 6. `Exe_class`
-	*performs fork(), execvp(), and waitpid(), in its own header file. Has the function eval to perform these tasks. This class will also perform flags from using the test syscall. Also should perform connector logic by using can_execute on the root.
+	*performs fork(), execvp(), and waitpid(), in its own header file. Has the function eval to perform these tasks. This class will also perform flags from using the test syscall. This is done by using stat().  Also should perform connector logic by using can_execute on the root.
     
 
 ## Protoypes/Research 
