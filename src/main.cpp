@@ -1,19 +1,23 @@
-#include "../header/Parser.h"
-#include <stdio.h> 
-#include <sys/types.h> 
-#include <unistd.h>
 #include <wait.h>
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
 #include "../header/executor.h"
+#include "../header/Parser.h"
 
 using namespace std;
 
 void prompt(){
     std::cout << "$ ";
 }
-
+void printInOrder(ARGBase* cur){
+    if (cur == nullptr){
+        return;
+    }
+    printInOrder(cur->get_left());
+    cout << cur->getARGValue();
+    printInOrder(cur->get_right());
+}
 //void eval(char** char_array);
 
 //MAIN MENU FOR USER
@@ -44,9 +48,23 @@ int main(){
         //     cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
         // }
-        cout << "this is the token vector size: " << tokens.size() << endl;
+        // cout << "this is the token vector size: " << tokens.size() << endl;
 
 
+         //char** argv = input.create_array(tokens);
+
+         //eval(argv);
+
+        vector<ARGBase*> temp = input.infix_to_postfix(tokens);
+       // cout << "this is the token vector size: " << tokens.size() << endl;
+       cout << endl;
+    //    for (int i = 0; i < temp.size() ; i++){
+    //        cout << temp.at(i)->getARGValue();
+    //    }
+    //stack<ARGBase*>pull;
+        input.create_tree_vector(temp);
+       // ARGBase* start = temp.at(0);
+     //  printInOrder(root);
         //  char** argv = input.create_array(tokens);
 
         //  eval(argv);
@@ -55,6 +73,3 @@ int main(){
 return 0;
 
 }
-
-
- 

@@ -1,8 +1,210 @@
-#include "../header/Parser.h"
 
-//  void Parser::create_tree_vector(vector <ARGBase*>& tokens){
+#include "../header/Parser.h"
+vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
+    //shunting yard
+    //(echo a && echo b) || (echo c && echo d)
+    //(echo d && echo c) || (echo b && echo a)
+    //how to deal with semicolons in terms of executor,
+    //use another vector that passes in first to reverse the vector that checks the parenthesis if ) then ( if ( then )
+    // ||&&echo a echo b && echo c echo d
+    // (echo a && echo b) || echo c
+    // echo c || (echo b && echo a)
+    // || && echo a echo b echo c
+    vector<ARGBase*>vals;
+    vector<ARGBase*>mirror;
+    stack<ARGBase*>signs;
+    queue<ARGBase*>hold;
+    ARGBase* temp;
+    int left_paren = 0;
+    int right_paren = 0;
+    for (int i = 0; i < tokens.size(); i++){ //checking for correct number of parenthesis, will not run if there is a missing parenthesis
+        if (tokens.at(i)->getARGValue() == "("){
+            left_paren++;
+        }
+        else if (tokens.at(i)->getARGValue() == ")"){
+            right_paren++;
+        }
+    }
+    if (left_paren != right_paren){
+        cout << "missing parenthesis" << endl;
+        exit(1);
+    }
+    //mirror the vector
+    for (int i = tokens.size()-1; i >= 0; i--){
+        if (tokens.at(i)->getARGValue() == ")"){
+            mirror.push_back(new Parenth("("));
+        }
+        else if (tokens.at(i)->getARGValue() == "("){
+            mirror.push_back(new Parenth(")"));
+        }
+        else{
+            mirror.push_back(tokens.at(i));
+        }
+    }
+    for (int i = 0 ; i < mirror.size(); i++){
+        cout << mirror.at(i)->getARGValue();
+    }
+    //shunting yard
+    // ((echo a || echo b) && echo c)
+    // (echo c && (echo b || echo a))
+    for (int i = 0; i < mirror.size(); i++){
+        if (mirror.at(i)->getARGValue() != "||" && mirror.at(i)->getARGValue() != "&&" && mirror.at(i)->getARGValue() != ";" && mirror.at(i)->getARGValue() != "(" && mirror.at(i)->getARGValue() != ")" ){
+            //echo,a
+            hold.push(mirror.at(i)); 
+            // implement edge case here
+           // if (i+1 != tokens.size()){
+            //i++;
+            //hold.push(tokens.at(i));
+           // cout << "here";
+            //}
+        }
+        else if (mirror.at(i)->getARGValue() == "&&" || mirror.at(i)->getARGValue() == "||" || mirror.at(i)->getARGValue() == ";" || mirror.at(i)->getARGValue() == "(" || mirror.at(i)->getARGValue() == ")"){
+
+            if (mirror.at(i)->getARGValue() == ")"){ //finding )
+                while(signs.top()->getARGValue() != "("){ //popping until ( //logic here wrong
+                    temp = signs.top();
+                    signs.pop();
+                    hold.push(temp);
+                }
+                if (signs.top()->getARGValue() == "("){
+                        signs.pop(); //removing ( from the stack
+                    }
+            }
+         //cout << "here" << endl; //not reaching here
+        //implement removing parenthesis
+            else{
+            signs.push(mirror.at(i));
+            }
+        }
+    }
+    //ls -a || echo a && echo b
+    //after the vector and empty and there are still stuff in the stack
+    if (!signs.empty()){
+        while(!signs.empty()){
+            // if (signs.top()->getARGValue() == "(" || signs.top()->getARGValue() == ")"){
+            //     cout << "error";
+            // }
+            //else{
+            temp = signs.top();
+            hold.push(temp);
+            signs.pop();
+           // }
+           // cout << "jer" ;
+        }
+    }
+    //printing the value of queue to see
+
+    // while(!hold.empty()){
+    //     //cout << "here";
+
+    //     temp = hold.front();
+    //     cout << temp->getARGValue();
+    //     hold.pop();
+    //     //cout << "here";
+    // }
+    // storing values into a vector
+    while(!hold.empty()){
+        temp = hold.front();
+        vals.push_back(temp);
+        hold.pop();
+    }
+    //printing the  vector
+    // (echo a || echo b) && echo c
+    // echo c && (echo b || echo a)
+    cout << endl;
+    //cout << "here" << endl;
+    for (int i = 0; i <vals.size(); i++){
+        cout << vals.at(i)->getARGValue();
+    }
+    cout << endl;
+
+    // for (int i = 0; i <vals.size(); i++){
+    //     reverse(vals.begin(), vals.end());
+    // }
+    // for (int i = 0; i <vals.size(); i++){
+    //     cout << vals.at(i)->getARGValue();
+    // }
+    //reversing a vector
+    return vals;
+}
+void Parser::printInOrder(ARGBase* cur){
+    if (cur == nullptr){
+        return;
+    }
+    printInOrder(cur->get_left());
+    cout << cur->getARGValue();
+    printInOrder(cur->get_right());
+}
+void Parser::create_tree_vector(vector <ARGBase*>& tokens){
+    //(echo a && echo b) || (echo c && echo d)
+    //(echo d && echo c) || (echo b && echo a)
+    //|| && echo a echo b && echo c echo d
+    //((echo a || echo b) && echo c)
+    // &&|| echo a echo b echo c
+    //(echo a || echo b) && (echo c || echo d) && (echo e || echo f)
+    //&& && || echo a echo b || echo c echo d || echo e echo f
    
+    cout << endl;
+//  for (int i = 0; i < tokens.size(); i++){
+//      cout << tokens.at(i)->getARGValue();
 //  }
+    //ARGBase* root;
+    ARGBase* temp;
+    ARGBase* temp_l;
+    ARGBase* temp_r;
+  
+    stack<ARGBase*>tree;
+    
+    for (int i = 0; i < tokens.size(); i++){
+        if(tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != "||"){
+            tree.push(tokens.at(i));
+        }
+        else if (i == tokens.size()-1){
+            temp = tokens.at(i);
+            temp_l = tree.top();
+            tree.pop();
+            temp_r = tree.top();
+            tree.pop();
+            temp->set_right(temp_r);
+            temp->set_left(temp_l);
+            tree.push(temp);
+            //root = tree.top();
+        }
+        else{
+            temp = tokens.at(i);
+            temp_l = tree.top();
+            tree.pop();
+           // if(!tree.empty()){
+            temp_r = tree.top();
+            tree.pop();
+            temp->set_right(temp_r);
+           // }
+            temp->set_left(temp_l);
+            tree.push(temp);
+        }
+    }    
+    root = tree.top();
+    printInOrder(root);
+    //echo a || echo b && echo c
+    //&&||echo a echo b echo c
+    // echo a || echo b
+    //|| echo a echo b
+    //|| && echo a echo b && echo c echo d
+    //postfix
+    //echo d echo c || echo b echo a || &&
+    // || echo c echo d
+    //echo b echo a ||
+    //echo a && (echo b || echo c)
+    //echo c echo b || echo a &&
+    
+
+
+    // cout << "here" << endl;
+    // root = tree.top();
+    // cout << root->getARGValue();
+    // cout << root->get_left()->getARGValue();
+    // cout << root->get_right()->getARGValue();
+}
 
 int Parser::find_comment_index(vector <ARGBase*>& tokens){
     int hash = -1;
@@ -32,7 +234,7 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
  do{
        string uptoSpace;
        cmdInput >> uptoSpace;
-       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n" && uptoSpace != "(" && uptoSpace != ")"){
        tokens.push_back(new User_Cmnds(uptoSpace));
        cout << "value here is not a connector ->" << tokens.back()->getARGValue() << "<-" << endl;
        }
@@ -53,144 +255,132 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
 
 void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tokens){
 
-    cout << "-------------------------------------------------\n This is grouping tokens\n\n" << endl;
-    string groupedValue = "";
-    bool found_connector = false; //flag in case of no connector
+   
+    string groupedValues = "";
+    bool flag = true; //if false means connecotr was found
+    int endParenth = 0;
 
-    do{
-        string uptoSpace;
-        cmdInput >> uptoSpace;
-
-       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
-       //tokens.push_back(new User_Cmnds(uptoSpace));
-       cout << "\nvalue here is not a connector ->" << uptoSpace << "<-" << endl;
-
-       //check for parenthesis
-            if(uptoSpace.at(0) == '('){ //checks right ( at start of string
-                    cout << "\n-------------parantheis check (---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
-
-                    string noParenthesis = uptoSpace.substr(1, string::npos ); //copys untill end of string with out the (
-                    cout << "\n this is the string with no  Parenthestis ->" << noParenthesis << "<-\n";
-
-                    uptoSpace = noParenthesis; //now equal to string with out (
-                    groupedValue += uptoSpace + " ";
-
-                    cout << "\n this is the grouped value " << groupedValue << endl;
-
-                    tokens.push_back(new Parenth("("));
-                    cout << "\n-------------parantheis check (---------------\nthis is the value of the input AFTER->" << uptoSpace << "<-" << endl;
-                    cout << "\n-------------parantheis check ( end---------------\n";
-                    cout << "this is the current string ->" << groupedValue << "<-" << endl;
-            }
-            else if(uptoSpace.at(uptoSpace.size() - 1 ) == ')'){//checks last index
-                cout << "\n-------------parantheis check )---------------\nthis is the value of the input before->" << uptoSpace << "<-" << endl;
-                uptoSpace.pop_back(); //delets last char which is the )...now equal to string with out )
-                groupedValue += uptoSpace;
-
-                  cout << "\n this is the grouped value " << groupedValue << endl;
-
-                tokens.push_back(new User_Cmnds(groupedValue));
-                cout << "this is the current string ->" << groupedValue << "<-" << endl;
-                groupedValue = "";
-                tokens.push_back(new Parenth(")") );
-            // groupedValue = "";//reset for next input after )
-                cout << "\n-------------parantheis check )---------------\nthis is the value of the input AFTER->" << uptoSpace << "<-" << endl;
-                cout << "-------------parantheis check ) end---------------\n";
-                found_connector = true;
-            }
-            else{
-                groupedValue += uptoSpace + " ";
-                  cout << "\n this is the grouped value " << groupedValue << endl;
-            }
+     do{
+       string uptoSpace;
+       cmdInput >> uptoSpace;
 
        
-       } 
-    // here groupValue could be empty 
-       else if(uptoSpace == "&&"){
-                cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
-                
-                if(!groupedValue.empty() ){
-                groupedValue.pop_back(); // gets rid of space at end
+       string temp = "";
 
-                cout << "\n this is the grouped value after pop->" << groupedValue << "<-" <<endl;
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
+
+       cout << "\nvalue here is not a connector ->" << uptoSpace << "<-" << endl;
+           for ( int  i = 0; i < uptoSpace.size(); i++)
+           {
+               cout << "this is the char->" << uptoSpace.at(i) << "<-\n" << endl;
+
+               if ( uptoSpace.at(i) == '(')
+               {
+                   tokens.push_back( new Parenth("(")    );
+               }
+               else if( uptoSpace.at(i) == ')'){
+                   endParenth++;
+               }
+               else{
+                   temp += uptoSpace.at(i);
+               }
+           }
            
-                tokens.push_back(new User_Cmnds(groupedValue));
-                }
+        //temp now holds whole word
+        groupedValues += temp + " ";
+
+       }
+       else if(uptoSpace == "&&"){
+           flag = false;
+          if(!groupedValues.empty() )
+               groupedValues.pop_back(); // gets rid of space at end
+             cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+            
+            tokens.push_back(new User_Cmnds(groupedValues));
+
+            if (endParenth > 0)
+            {
+                do{
+                tokens.push_back(new Parenth(")") );
+                endParenth--;
+                }while(endParenth > 0);
+            }
+
            tokens.push_back(new And());
-           cout << endl << tokens.back()->getARGValue() << endl;
-           groupedValue = ""; //resets string for use after cmnd
-           found_connector = true;
+           groupedValues = ""; //resets string after connector
        }
        else if(uptoSpace == "||"){
-            cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
-            if(!groupedValue.empty() ){
-                groupedValue.pop_back(); // gets rid of space at end
-                cout << "\n this is the grouped value after pop->" << groupedValue << "<-" << endl;
+           flag = false;
 
-                tokens.push_back(new User_Cmnds(groupedValue));
+           if(!groupedValues.empty() )
+               groupedValues.pop_back(); // gets rid of space at end
+             cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+             
+             tokens.push_back(new User_Cmnds(groupedValues));
+
+              if (endParenth > 0)
+            {
+                do{
+                tokens.push_back(new Parenth(")") );
+                endParenth--;
+                }while(endParenth > 0);
             }
+
            tokens.push_back(new Or());
-           cout << endl << tokens.back()->getARGValue() << endl;
-           groupedValue = ""; //resets string for use after cmnd
-           found_connector = true;
+           groupedValues = ""; //resets string after connector
        }
        else if(uptoSpace == ";"){
-           cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
-            if(!groupedValue.empty() ){
-               groupedValue.pop_back(); // gets rid of space at end
-             cout << "\n this is the grouped value after pop->" << groupedValue << "<-" << endl;
-             tokens.push_back(new User_Cmnds(groupedValue));
+           flag = false;
+
+           if(!groupedValues.empty() )
+               groupedValues.pop_back(); // gets rid of space at end
+             cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+             
+             tokens.push_back(new User_Cmnds(groupedValues));
+
+              if (endParenth > 0)
+            {
+                do{
+                tokens.push_back(new Parenth(")") );
+                endParenth--;
+                }while(endParenth > 0);
             }
+
            tokens.push_back(new Colon());
-           cout << endl << tokens.back()->getARGValue() << endl;
-           groupedValue = ""; //resets string for use after cmnd
-           found_connector = true;
+           groupedValues = ""; //resets string after connector
        }
 
-   }while (cmdInput);
-    cout << "\n -----------------------------------------this is after parsing -----------------------\n" ;
-    if( (found_connector == false) || (!groupedValue.empty()) ){
 
-        if(!groupedValue.empty()){
-        cout << "\n this is the grouped value before pop->" << groupedValue << "<-" << endl;
-        groupedValue.pop_back(); // gets rid of space at end
-        cout << "\n this is the grouped value after pop->" << groupedValue << "<-" << endl;
-        tokens.push_back(new User_Cmnds(groupedValue));
+       //dealing with right parenthentesis
+
+   }while (cmdInput);
+     if( (flag == false) || (!groupedValues.empty()) ){
+
+        if(!groupedValues.empty()){
+        cout << "\n this is the grouped value before pop->" << groupedValues << "<-" << endl;
+        groupedValues.pop_back(); // gets rid of space at end
+        cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+        tokens.push_back(new User_Cmnds(groupedValues));
         }
+
+         if (endParenth > 0)
+            {
+                do{
+                tokens.push_back(new Parenth(")") );
+                endParenth--;
+                }while(endParenth > 0);
+            }
         cout << "\n this is after all cmnds are proceesed \n";
         cout << endl << tokens.back()->getARGValue() << endl;
     }
-    // else if(!groupedValue.empty()){
-    //     tokens.push_back(new User_Cmnds(groupedValue));
-    //     cout << "\n this is after all cmnds are proceesed \n";
-    //     cout << endl << tokens.back()->getARGValue() << endl;
-    // }
+
+
+  // what if no connecotor
 
     return;
 }
 
- void Parser::infix_to_postfix(vector <ARGBase*>& tokens){//doesn not take () yet
-    // stack<ARGBase*> non_operators; //aka output
-    // stack<ARGBase*> operators; // 
 
-    // for(int i = 0; i < tokens.size(); i++){
-    //     //no white space is in the token vecotr
-    //     //checking if operator is present
-    //     //presedence for operators is the same except ; separates an and ()
-    //     if(tokens.at(i)->getARGValue().at(0) == '('){//checks for ()
-    //         operators.push(new Parenth("("));
-
-    //     }
-    //     if(tokens.at(i)->is_operator() != true){ //meaning some command
-    //         non_operators.push(tokens.at(i));
-    //         cout << "this token was pushed to non_op queue:->" << tokens.at(i)->getARGValue() << "<-" << endl;
-    //     }
-
-
-    // }
-
-
- }
 
 char** Parser::create_array(vector <ARGBase*>& tokens){
     char ** cmnds = NULL;
@@ -241,5 +431,3 @@ vector<ARGBase*> Parser::parse(){
 return tokens;
 
 }
-
-
