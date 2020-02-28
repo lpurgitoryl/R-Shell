@@ -31,25 +31,62 @@ int numSpaces = 0;
             numSpaces++;
         }
     }
+    numSpaces++; //to account for the word after the space
 
-    cmnds = (char**) malloc((numSpaces + 1) * sizeof(char*)); //allocates "lenghth" of 2d array
+    cout << "this is oginal size " << numSpaces  << endl;
+    cmnds = (char**) malloc((numSpaces + 1) * sizeof(char*)); //allocates "lenghth" of 2d array, adds 1 for null char
+
 //HERE IS WHERE WE DECIDE WHERRE TO ALLOCATE 
 
 
    // cout << tokens.size() << " this is token size \n";
     //cout << "before for loop" << endl;
+    int index = 0;
+    string temp = "";
+
     for (int i = 0; i < tokens.size() ; i++){
-        cmnds[i] = (char*) malloc( tokens.at(i)->getARGValue().size() * sizeof(char)); //allocates space for string @ index
-        char * vals = const_cast<char*>(  tokens.at(i)->getARGValue().c_str());
-        strcpy(cmnds[i], vals);
+        if(tokens.at(i) != ' '){
+            temp += tokens.at(i);//ads to string in order to get word 
+            cout << "this is temp value->" << temp << "<-\n";
+        }
+        else{
+            if(index <= numSpaces) {  
+                 cout << "this is index " <<  index << endl;
+                cmnds[index] = (char*) malloc( temp.size() * sizeof(char)); //allocates space for string @ index
+                char * vals = const_cast<char*>(  temp.c_str());
+                strcpy(cmnds[index], vals);
+                cout << "this is the value in the aray->" << cmnds[index] << "<-\n";
+                
+                index++;
+                cout << "this is new index " <<  index << endl;
+
+                temp = "";
+            }
+        }
       //  cout << cmnds[i] << endl;
     } 
-    cmnds[tokens.size()] = NULL; //creates end with null
-    
+
+    if(temp != ""){
+        cout << "this is index after loop\n" << index << endl;
+
+        cmnds[index] = (char*) malloc( temp.size() * sizeof(char)); //allocates space for string @ index
+        char * vals = const_cast<char*>(  temp.c_str());
+        strcpy(cmnds[index], vals);
+        cout << "this is the value in the aray->" << cmnds[index] << "<-\n";
+        index++;
+    }
+
+    cout << "\n size of array is " << numSpaces +1 << endl;
+    cmnds[numSpaces + 1] = NULL; //creates end with null
+   // cout << "this is last value" << cmnds[numSpaces + 1] << endl;
+   cout << "\nthese are the values in the array\n";
+   for(int i = 0 ; i <= numSpaces + 1 ; i++){
+       cout << cmnds[i] << "\n";
+   }
     return cmnds;
 
 }
-int eval(char** args){
+void eval(char** args){
 
     pid_t childProcess = fork();
     int childStatus; //to be used by wait
@@ -71,9 +108,9 @@ int eval(char** args){
         //wait child
         childProcessID = wait(&childStatus); //
         // use wifext,
-      if(  WIFEXITED(childStatus) > 0){
-             return childStatus;
-        }; //
+    //   if(  WIFEXITED(childStatus) > 0){
+    //          return childStatus;
+    //     }; //
       //  cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
     }
     //return childStatus;
@@ -98,7 +135,8 @@ void runCommands(ARGBase* root){//tokens are in tree form
 
     cout << "this is root " << root->getARGValue() << endl;
     char** cmnd = create_array(root->getARGValue());
-    cout << "THIS IS CMND " << cmnd << endl;
+    cout << "THIS IS CMND " << cmnd[0] << endl;
+    eval(cmnd);
     // if( eval(cmnd) > 0 )
     //     cout << "error";
 
