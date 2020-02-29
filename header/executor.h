@@ -147,13 +147,26 @@ void runCommands(ARGBase* root){//tokens are in tree form
 }
 
 void runTest(string test){
-    for(int i = 0; i < test.size() ; i++){
+  
+    string sub = test.substr(0, 4);
+    cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
 
-
-
-
-        
+    if( sub != "test" && test.at(0) != '[' ){
+       cout << "\nno test function" << endl;
+       return; 
     }
+    else{
+    cout << "found test function" << endl;
+    }
+    //if -e check file directory exits, deafult
+    //if -f check if file/directory exist and is regular file
+    //if -d checks if file/directory exists and is a directory
+    //use S_ISDIR AND S_ISREG MACROS
+    //EX. test -e test/file/path ,  [ -e test/file/path ] 
+    //stat returns -1 if error
+   
+   // struct stat file;
+
 
 } 
 
