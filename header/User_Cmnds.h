@@ -1,6 +1,7 @@
 #ifndef __CMNDS__
 #define __CMNDS__
 
+//#include "executor.h"
 #include "ARGBase.h"
 
 // will do fork, execvp, waitpid
@@ -30,8 +31,13 @@ class User_Cmnds : public ARGBase {
         }
 
 
-        virtual bool can_execute(){
-            return true;
+        bool can_execute(){
+            // char** argv = create_array(ARGValue);
+            // if( eval(argv) < 1){
+            //     return false;
+            // }
+             return true;
+            
         }
 
         bool is_operator(){

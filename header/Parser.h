@@ -9,6 +9,8 @@
 #include "Connector.h"
 #include "Parenthesis.h"
 
+//#include "executor.h"
+
 #include <iostream>
 #include <vector>
 #include <sstream>
@@ -43,7 +45,7 @@ class Parser{
         void tokenize_each_input(istringstream& cmdInput ,  vector <ARGBase*>& tokens);//separates each input as its seprate object EX. echo hello || echo hello is stored in a vector as ["echo" "hello" "||" "echo" "hello"]
         vector<ARGBase*> infix_to_postfix(vector <ARGBase*>& tokens);
         void create_tree_vector(vector <ARGBase*>& tokens);
-        char** create_array(vector <ARGBase*>& tokens);
+        //char** create_array(vector <ARGBase*>& tokens);
         void printInOrder(ARGBase* cur);
         ARGBase* getRoot(){
             return root;
