@@ -31,6 +31,13 @@ class User_Cmnds : public ARGBase {
         }
         
         bool can_execute(){
+            // char** test = create_char_array(this->ARGValue);
+            // if(eval(test) > 0){
+            //     return false;
+            // }
+
+
+            
             return 1;
         }
 

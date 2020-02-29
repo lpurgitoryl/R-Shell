@@ -22,7 +22,7 @@
 using namespace std;
 
 
-char** create_array(string tokens){
+char** create_char_array(string tokens){
     char ** cmnds = NULL;
 //TODO: FIND LENGHT OF 2D VIA SPACES
  int numSpaces = 0;
@@ -171,7 +171,7 @@ void runCommands(ARGBase* root){//tokens are in tree form
 
    std:: cout << "this is root " << root->getARGValue() << endl;
     //root->can_execute();
-    char** cmnd = create_array(root->getARGValue());
+    char** cmnd = create_char_array(root->getARGValue());
     std::cout << "THIS IS CMND " << cmnd[0] << endl;
     // if ( runTest();
    std::cout <<  eval(cmnd) ;
