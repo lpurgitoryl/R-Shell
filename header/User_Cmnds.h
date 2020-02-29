@@ -29,20 +29,18 @@ class User_Cmnds : public ARGBase {
         ARGBase* get_left(){
         return this->left;
         }
-
-
+        
         bool can_execute(){
-            // char** argv = create_array(ARGValue);
-            // if( eval(argv) < 1){
-            //     return false;
-            // }
-             return true;
-            
+            return 1;
         }
 
         bool is_operator(){
             return this->op;
         }
+
+        
+
+
 
 };
 

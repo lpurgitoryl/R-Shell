@@ -34,7 +34,7 @@ char** create_array(string tokens){
     }
     numSpaces++; //to account for the word after the space
 
-    cout << "this is oginal size " << numSpaces  << endl;
+    std::cout << "this is oginal size " << numSpaces  << endl;
     cmnds = (char**) malloc((numSpaces + 1) * sizeof(char*)); //allocates "lenghth" of 2d array, adds 1 for null char
 
 //HERE IS WHERE WE DECIDE WHERRE TO ALLOCATE 
@@ -48,18 +48,18 @@ char** create_array(string tokens){
     for (int i = 0; i < tokens.size() ; i++){
         if(tokens.at(i) != ' '){
             temp += tokens.at(i);//ads to string in order to get word 
-            cout << "this is temp value->" << temp << "<-\n";
+            std::cout << "this is temp value->" << temp << "<-\n";
         }
         else{
             if(index < numSpaces) {  
-                 cout << "this is index " <<  index << endl;
+                std::cout << "this is index " <<  index << endl;
                 cmnds[index] = (char*) malloc( temp.size() * sizeof(char)); //allocates space for string @ index
                 char * vals = const_cast<char*>(  temp.c_str());
                 strcpy(cmnds[index], vals);
-                cout << "this is the value in the aray->" << cmnds[index] << "<-\n";
+                std::cout << "this is the value in the aray->" << cmnds[index] << "<-\n";
                 
                 index++;
-                cout << "this is new index " <<  index << endl;
+                std::cout << "this is new index " <<  index << endl;
 
                 temp = "";
             }
@@ -67,25 +67,25 @@ char** create_array(string tokens){
       //  cout << cmnds[i] << endl;
     } 
 
-    cout << "\nIndex after loop allocation " << index << endl;
+    std::cout << "\nIndex after loop allocation " << index << endl;
 
     if(temp != ""){
-        cout << "this is index after loop\n" << index << endl;
+        std::cout << "this is index after loop\n" << index << endl;
 
         cmnds[index] = (char*) malloc( temp.size() * sizeof(char)); //allocates space for string @ index
         char * vals = const_cast<char*>(  temp.c_str());
         strcpy(cmnds[index], vals);
-        cout << "this is the value in the aray->" << cmnds[index] << "<-\n";
+        std::cout << "this is the value in the aray->" << cmnds[index] << "<-\n";
         index++;
     }
 
-    cout << "\n size of array is " << numSpaces + 1 << endl;
+    std::cout << "\n size of array is " << numSpaces + 1 << endl;
     cmnds[numSpaces] = NULL; //creates end with null
    // cout << "this is last value" << cmnds[numSpaces + 1] << endl;
-   cout << "\nthese are the values in the array\n";
+   std::cout << "\nthese are the values in the array\n";
    for(int i = 0 ; i <= numSpaces ; i++){
        if (cmnds[i] != NULL)
-       cout << cmnds[i] << "\n" << "here";
+       std::cout << cmnds[i] << "\n" << "here";
    }
     return cmnds;
 
@@ -99,13 +99,13 @@ int eval(char** args){ // returns 1 for true and 0 for false
     waitpid(childProcess, &childStatus, 0);
 
     if( childProcess < 0){
-        cout << "Child process could not be created\n";
+        std::cout << "Child process could not be created\n";
 
         exit(EXIT_FAILURE); 
     }
     else if( childProcess == 0){
         
-       cout << "this is process\n" << endl;
+       std::cout << "this is process\n" << endl;
        if(execvp(*args, args) == -1){
            perror("exec");
            return 0; //false
@@ -124,44 +124,15 @@ int eval(char** args){ // returns 1 for true and 0 for false
     return 1; //true
     //return childStatus;
 }
-void runCommands(ARGBase* root){//tokens are in tree form
-    // ARGBase* cur = root;
 
-    // if (cur == nullptr){
-    //     return;
-    // }
-    // runCommands(cur->get_left());
-    // //cout << cur->getARGValue();
-    // if(cur->getARGValue() == "||" || cur->getARGValue() == "&&" ){
-    //     if(cur->getARGValue() == "||"){
-    //         if(cur->get_left())
-    //     }
-    // }
-    // char** cmnd = create_array(cur->getARGValue());
-    // int executed = eval(cmnd);
-    // if( executed < 0 )
-    // runCommands(cur->get_right());
-
-    cout << "this is root " << root->getARGValue() << endl;
-    //root->can_execute();
-    char** cmnd = create_array(root->getARGValue());
-    cout << "THIS IS CMND " << cmnd[0] << endl;
-    // if ( runTest();
-   cout <<  eval(cmnd) ;
-    // if( eval(cmnd) > 0 )
-    //     cout << "error";
-
-
-
-}
 
 bool runTest(string test){
   
     string sub = test.substr(0, 4);
-    cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
+    std::cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
 
     if( sub != "test" && test.at(0) != '[' ){
-       cout << "\nno test function" << endl;
+       std::cout << "\nno test function" << endl;
        return false;
     }
     else{
@@ -180,7 +151,37 @@ bool runTest(string test){
 
 } 
 
+void runCommands(ARGBase* root){//tokens are in tree form
+    // ARGBase* cur = root;
 
+    // if (cur == nullptr){
+    //     return;
+    // }
+    // runCommands(cur->get_left());
+    // //cout << cur->getARGValue();
+    // if(cur->getARGValue() == "||" || cur->getARGValue() == "&&" ){
+    //     if(cur->getARGValue() == "||"){
+    //         if(cur->get_left())
+    //     }
+    // }
+    // char** cmnd = create_array(cur->getARGValue());
+    // int executed = eval(cmnd);
+    // if( executed < 0 )
+    // runCommands(cur->get_right());
+
+   std:: cout << "this is root " << root->getARGValue() << endl;
+    //root->can_execute();
+    char** cmnd = create_array(root->getARGValue());
+    std::cout << "THIS IS CMND " << cmnd[0] << endl;
+    // if ( runTest();
+   std::cout <<  eval(cmnd) ;
+    // if( eval(cmnd) > 0 )
+    //     cout << "error";
+
+
+return;
+
+}
 
 
 #endif

@@ -59,8 +59,8 @@ int main(){
     //stack<ARGBase*>pull;
         input.create_tree_vector(temp);
         cout << "\n this should run cmnd\n" << endl;
-
-       runCommands(input.getRoot());
+        //input.getRoot()->can_execute();
+        runCommands(input.getRoot());
        // runTest(input.getRoot()->getARGValue() );
        // ARGBase* start = temp.at(0);
      //  printInOrder(root);
