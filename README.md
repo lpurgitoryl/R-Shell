@@ -39,7 +39,7 @@ For the OMT DIAGRAM, the fork class is currently combined with exec class
     *  `Connector_class` : any connector that a user will add to a line
     * `Exe_class` : will do any syscalls
 3. `Parser` 
-	*Parser will parse the user input into string that will then be stored in a vector called tokens that will hold ARGBase pointers. This is also how we change the string into **char in order to run execvp.
+	*Parser will parse the user input into string that will then be stored in a vector called tokens that will hold ARGBase pointers. This is also how we change the string into **char in order to run execvp. Addded an implementation in order to handle precedence with parenthesis. Uses Shunting-Yard Algorithm and turns the postfix notation into a tree in order to run connectors.
 
 4. `User_commands`
     	*will perform any commands that the user will put in. Has an execute function from its parent class to see if the user command is valid and will run.
@@ -47,7 +47,7 @@ For the OMT DIAGRAM, the fork class is currently combined with exec class
 	*will perform the logics for and, or, and semicolon, Currently cannot do logic for multiple arguments, also makes a constructor with ARGBASE pointing left and right. Contains a execute function which is derived from its parent class.
     
 6. `Exe_class`
-	*performs fork(), execvp(), and waitpid(), in its own header file. Has the function eval to perform these tasks.
+	*performs fork(), execvp(), and waitpid(), in its own header file. Has the function eval to perform these tasks. This class will also perform flags from using the test syscall. This is done by using stat().  Also should perform connector logic by using can_execute on the root.
     
 
 ## Protoypes/Research 
