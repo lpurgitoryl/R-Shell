@@ -24,7 +24,7 @@ using namespace std;
 char** create_array(string tokens){
     char ** cmnds = NULL;
 //TODO: FIND LENGHT OF 2D VIA SPACES
-int numSpaces = 0;
+ int numSpaces = 0;
 
     for(int i = 0; i < tokens.size(); i++){
         if(tokens.at(i) == ' '){
@@ -78,12 +78,13 @@ int numSpaces = 0;
         index++;
     }
 
-    cout << "\n size of array is " << numSpaces +1 << endl;
-    cmnds[numSpaces + 1] = NULL; //creates end with null
+    cout << "\n size of array is " << numSpaces + 1 << endl;
+    cmnds[numSpaces] = NULL; //creates end with null
    // cout << "this is last value" << cmnds[numSpaces + 1] << endl;
    cout << "\nthese are the values in the array\n";
-   for(int i = 0 ; i <= numSpaces + 1 ; i++){
-       cout << cmnds[i] << "\n";
+   for(int i = 0 ; i <= numSpaces ; i++){
+       if (cmnds[i] != NULL)
+       cout << cmnds[i] << "\n" << "here";
    }
     return cmnds;
 

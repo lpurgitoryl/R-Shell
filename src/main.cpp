@@ -57,8 +57,8 @@ int main(){
         input.create_tree_vector(temp);
         cout << "\n this should run cmnd\n" << endl;
 
-       //runCommands(input.getRoot());
-        runTest(input.getRoot()->getARGValue() );
+       runCommands(input.getRoot());
+       // runTest(input.getRoot()->getARGValue() );
        // ARGBase* start = temp.at(0);
      //  printInOrder(root);
         //  char** argv = input.create_array(tokens);
