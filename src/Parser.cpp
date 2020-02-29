@@ -1,5 +1,7 @@
 
 #include "../header/Parser.h"
+
+
 vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     //shunting yard
     //(echo a && echo b) || (echo c && echo d)

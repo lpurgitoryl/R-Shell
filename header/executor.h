@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <wait.h>
+
 #include "Parser.h"
 
 using namespace std;
@@ -89,7 +90,7 @@ char** create_array(string tokens){
     return cmnds;
 
 }
-void eval(char** args){
+int eval(char** args){ // returns 1 for true and 0 for false
 
     pid_t childProcess = fork();
     int childStatus; //to be used by wait
@@ -104,7 +105,11 @@ void eval(char** args){
     }
     else if( childProcess == 0){
         
-       execvp(*args, args) ; //execute
+       cout << "this is process\n" << endl;
+       if(execvp(*args, args) == -1){
+           perror("exec");
+           return 0; //false
+       } ; //execute
         
     }
     else {
@@ -116,6 +121,7 @@ void eval(char** args){
     //     }; //
       //  cout << "Parent: Child " <<  childProcessID << " exited with status = " << childStatus << endl;
     }
+    return 1; //true
     //return childStatus;
 }
 void runCommands(ARGBase* root){//tokens are in tree form
@@ -137,9 +143,11 @@ void runCommands(ARGBase* root){//tokens are in tree form
     // runCommands(cur->get_right());
 
     cout << "this is root " << root->getARGValue() << endl;
+    //root->can_execute();
     char** cmnd = create_array(root->getARGValue());
     cout << "THIS IS CMND " << cmnd[0] << endl;
-    eval(cmnd);
+    // if ( runTest();
+   cout <<  eval(cmnd) ;
     // if( eval(cmnd) > 0 )
     //     cout << "error";
 
@@ -147,18 +155,19 @@ void runCommands(ARGBase* root){//tokens are in tree form
 
 }
 
-void runTest(string test){
+bool runTest(string test){
   
     string sub = test.substr(0, 4);
     cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
 
     if( sub != "test" && test.at(0) != '[' ){
        cout << "\nno test function" << endl;
-       return; 
+       return false;
     }
     else{
-    cout << "found test function" << endl;
+        return true;
     }
+    return false;
     //if -e check file directory exits, deafult
     //if -f check if file/directory exist and is regular file
     //if -d checks if file/directory exists and is a directory
