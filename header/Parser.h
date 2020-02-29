@@ -45,6 +45,9 @@ class Parser{
         void create_tree_vector(vector <ARGBase*>& tokens);
         char** create_array(vector <ARGBase*>& tokens);
         void printInOrder(ARGBase* cur);
+        ARGBase* getRoot(){
+            return root;
+        }
 
 };
 

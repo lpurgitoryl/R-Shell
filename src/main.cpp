@@ -1,27 +1,15 @@
-#include "../header/Parser.h"
-#include <stdio.h> 
-#include <sys/types.h> 
-#include <unistd.h>
 #include <wait.h>
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
 #include "../header/executor.h"
+#include "../header/Parser.h"
 
 using namespace std;
 
 void prompt(){
     std::cout << "$ ";
 }
-void printInOrder(ARGBase* cur){
-    if (cur == nullptr){
-        return;
-    }
-    printInOrder(cur->get_left());
-    cout << cur->getARGValue();
-    printInOrder(cur->get_right());
-}
-//void eval(char** char_array);
 
 //MAIN MENU FOR USER
 
@@ -66,6 +54,10 @@ int main(){
     //    }
     //stack<ARGBase*>pull;
         input.create_tree_vector(temp);
+        cout << "\n this should run cmnd\n" << endl;
+
+        runCommands(input.getRoot());
+        
        // ARGBase* start = temp.at(0);
      //  printInOrder(root);
         //  char** argv = input.create_array(tokens);
@@ -76,6 +68,3 @@ int main(){
 return 0;
 
 }
-
-
- 
