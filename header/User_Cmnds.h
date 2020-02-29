@@ -35,8 +35,6 @@ class User_Cmnds : public ARGBase {
             // if(eval(test) > 0){
             //     return false;
             // }
-
-
             
             return 1;
         }
