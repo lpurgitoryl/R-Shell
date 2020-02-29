@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <wait.h>
+#include <sys/stat.h>
 
 #include "Parser.h"
 
@@ -126,30 +127,46 @@ int eval(char** args){ // returns 1 for true and 0 for false
 }
 
 
-bool runTest(string test){
+bool runTest(string test){ // true = 0, false = 1
   
-    if(test.at(0) != '['){
-        
-    
-        if(test.size() >= 4){
+   // cout << "test size" << test.size() << endl;
+     if(test.size() >= 4){
             cout << "greater than 4" << endl;
             string sub = test.substr(0, 4);
             std::cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
-            if( test.at(0) != '[' || sub != "test" ){
+            if( sub != "test" && sub.at(0) != '['){
             std::cout << "\nno test function for size 4 or greater" << endl;
             return false;
             }
-        }
-       // else{
-        std::cout << "\nno test function in general either first char or key word" << endl;
+       // return true;
+    }
+
+    else if( (test.at(0) == '[' && test.at(test.size() -1 ) != ']') || (test.at(0) != '[' && test.at(test.size() -1 ) != ']') ){
+
+        std::cout << "\nno test function in general either because of first char or key word" << endl;
         return false;
        // }
     }
-    
-    else{
-        return true;
+    // at this point it is a test cmnd
+    struct stat buff;
+
+    string flag = "";
+    string restofString = "";
+
+    //cout << test.at(0);
+    if(test.at(0) == '['){ //flag will be at 2,3
+        flag = test.substr(2,2);
+        restofString = test.substr(5, test.size() - 2);
+        //cout <<  "this be flag " << flag << endl;
     }
-    //return false;
+   
+    if(flag == "-e" ){
+        if(stat(restofString.c_str(), &buff) == 0)
+        {
+            return true;
+        }
+    }
+    
     //if -e check file directory exits, deafult
     //if -f check if file/directory exist and is regular file
     //if -d checks if file/directory exists and is a directory
@@ -159,6 +176,7 @@ bool runTest(string test){
    
    // struct stat file;
 
+    return true;
 
 } 
 
@@ -188,6 +206,10 @@ void runCommands(ARGBase* root){//tokens are in tree form
 
         cout << "\nno test here in run cmnds check\n";
         cout << runTest(root->getARGValue()) << " this is failure for test func\n";
+     }
+     else if(runTest(root->getARGValue())){
+         cout << "(true)" << endl;
+         return;
      }
     cout <<  eval(cmnd);
     // if( eval(cmnd) > 0 )
