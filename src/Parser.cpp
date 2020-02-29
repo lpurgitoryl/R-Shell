@@ -257,7 +257,10 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
 
 void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tokens){
 
+<<<<<<< HEAD
    
+=======
+>>>>>>> 3b9113f1dbfba643eb8e0cfe8de976ccf9b265cb
     string groupedValues = "";
     bool flag = true; //if false means connecotr was found
     int endParenth = 0;
@@ -375,6 +378,8 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
         cout << "\n this is after all cmnds are proceesed \n";
         cout << endl << tokens.back()->getARGValue() << endl;
     }
+<<<<<<< HEAD
+=======
 
 
   // what if no connecotor
@@ -383,9 +388,148 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 }
 
 
+//  void Parser::infix_to_postfix(vector <ARGBase*>& tokens){//doesn not take () yet
+//     // stack<ARGBase*> non_operators; //aka output
+//     // stack<ARGBase*> operators; 
 
+//     // for(int i = 0; i < tokens.size(); i++){
+//     //     //no white space is in the token vecotr
+//     //     //checking if operator is present
+//     //     //presedence for operators is the same except ; separates an and ()
+//     //     if(tokens.at(i)->getARGValue().at(0) == '('){//checks for ()
+//     //         operators.push(new Parenth("("));
+>>>>>>> 3b9113f1dbfba643eb8e0cfe8de976ccf9b265cb
+
+
+  // what if no connecotor
+
+    return;
+}
+
+    ////////HUNGS CODE
+
+    
+    //(echo a && echo b) || (echo c && echo d)
+    //(echo d && echo c) || (echo b && echo a)
+    //how to deal with semicolons in terms of executor,
+    //use another vector that passes in first to reverse the vector that checks the parenthesis if ) then ( if ( then )
+    // ||&&echo a echo b && echo c echo d
+    // (echo a && echo b) || echo c
+    // echo c || (echo b && echo a)
+    // || && echo a echo b echo c
+    vector<ARGBase*>vals;
+    vector<ARGBase*>mirror;
+    stack<ARGBase*>signs;
+    queue<ARGBase*>hold;
+    ARGBase* temp;
+    //mirror the vector
+    for (int i = tokens.size()-1; i >= 0; i--){
+        if (tokens.at(i)->getARGValue() == ")"){
+            mirror.push_back(new Parenth("("));
+        }
+        else if (tokens.at(i)->getARGValue() == "("){
+            mirror.push_back(new Parenth(")"));
+        }
+        else{
+            mirror.push_back(tokens.at(i));
+        }
+    }
+    for (int i = 0 ; i < mirror.size(); i++){
+        cout << mirror.at(i)->getARGValue();
+    }
+    //shunting yard
+    // ((echo a || echo b) && echo c)
+    // (echo c && (echo b || echo a))
+    for (int i = 0; i < mirror.size(); i++){
+        if (mirror.at(i)->getARGValue() != "||" && mirror.at(i)->getARGValue() != "&&" && mirror.at(i)->getARGValue() != ";" && mirror.at(i)->getARGValue() != "(" && mirror.at(i)->getARGValue() != ")" ){
+            //echo,a
+            hold.push(mirror.at(i)); 
+            // implement edge case here
+           // if (i+1 != tokens.size()){
+            //i++;
+            //hold.push(tokens.at(i));
+           // cout << "here";
+            //}
+        }
+        else if (mirror.at(i)->getARGValue() == "&&" || mirror.at(i)->getARGValue() == "||" || mirror.at(i)->getARGValue() == ";" || mirror.at(i)->getARGValue() == "(" || mirror.at(i)->getARGValue() == ")"){
+
+            if (mirror.at(i)->getARGValue() == ")"){ //finding )
+                while(signs.top()->getARGValue() != "("){ //popping until ( //logic here wrong
+                    temp = signs.top();
+                    signs.pop();
+                    hold.push(temp);
+                }
+                if (signs.top()->getARGValue() == "("){
+                        signs.pop(); //removing ( from the stack
+                    }
+            }
+         //cout << "here" << endl; //not reaching here
+        //implement removing parenthesis
+            else{
+            signs.push(mirror.at(i));
+            }
+        }
+    }
+    //ls -a || echo a && echo b
+    //after the vector and empty and there are still stuff in the stack
+    if (!signs.empty()){
+        while(!signs.empty()){
+            // if (signs.top()->getARGValue() == "(" || signs.top()->getARGValue() == ")"){
+            //     cout << "error";
+            // }
+            //else{
+            temp = signs.top();
+            hold.push(temp);
+            signs.pop();
+           // }
+           // cout << "jer" ;
+        }
+    }
+    //printing the value of queue to see
+
+    // while(!hold.empty()){
+    //     //cout << "here";
+
+    //     temp = hold.front();
+    //     cout << temp->getARGValue();
+    //     hold.pop();
+    //     //cout << "here";
+    // }
+    // storing values into a vector
+    while(!hold.empty()){
+        temp = hold.front();
+        vals.push_back(temp);
+        hold.pop();
+    }
+    //printing the  vector
+    // (echo a || echo b) && echo c
+    // echo c && (echo b || echo a)
+    cout << endl;
+    //cout << "here" << endl;
+    for (int i = 0; i <vals.size(); i++){
+        cout << vals.at(i)->getARGValue();
+    }
+    cout << endl;
+
+    for (int i = 0; i <vals.size(); i++){
+        reverse(vals.begin(), vals.end());
+    }
+    for (int i = 0; i <vals.size(); i++){
+        cout << vals.at(i)->getARGValue();
+    }
+    //reversing a vector
+    return vals;
+
+
+
+<<<<<<< HEAD
 // char** Parser::create_array(vector <ARGBase*>& tokens){
 //     char ** cmnds = NULL;
+=======
+
+char** Parser::create_array(vector <ARGBase*>& tokens){
+    char ** cmnds = NULL;
+>>>>>>> 3b9113f1dbfba643eb8e0cfe8de976ccf9b265cb
 
 //     cmnds = (char**) malloc((tokens.size()) * sizeof(char*)); //allocates "lenghth" of 2d array
 
@@ -401,8 +545,14 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
     
 //     return cmnds;
 
+<<<<<<< HEAD
 // }
+=======
+}
+void Parser::create_tree_vector(vector <ARGBase*>& tokens){
+>>>>>>> 3b9113f1dbfba643eb8e0cfe8de976ccf9b265cb
 
+}
 vector<ARGBase*> Parser::parse(){
     vector <ARGBase*> tokens;
     // 

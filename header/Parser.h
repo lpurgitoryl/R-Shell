@@ -19,15 +19,18 @@
 #include <stdio.h>
 #include <stack>
 #include <queue>
+#include <sys/stat.h>
+#include <algorithm>
 
 using namespace std;
 
 class Parser{
+
     private:
         //std::string cmdInput;
         istringstream cmdInput;
        // char* connectValues [";", "&&", "||"] ;
-        ARGBase* root = nullptr;
+        ARGBase* root = nullptr;//used for tree
 
     public:
         Parser(string input): cmdInput(input){ }
