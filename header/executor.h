@@ -85,7 +85,7 @@ char** create_array(string tokens){
    std::cout << "\nthese are the values in the array\n";
    for(int i = 0 ; i <= numSpaces ; i++){
        if (cmnds[i] != NULL)
-       std::cout << cmnds[i] << "\n" << "here";
+       std::cout << cmnds[i] << "\n";
    }
     return cmnds;
 
