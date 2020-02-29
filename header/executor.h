@@ -128,17 +128,28 @@ int eval(char** args){ // returns 1 for true and 0 for false
 
 bool runTest(string test){
   
-    string sub = test.substr(0, 4);
-    std::cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
-
-    if( sub != "test" && test.at(0) != '[' ){
-       std::cout << "\nno test function" << endl;
-       return false;
+    if(test.at(0) != '['){
+        
+    
+        if(test.size() >= 4){
+            cout << "greater than 4" << endl;
+            string sub = test.substr(0, 4);
+            std::cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
+            if( test.at(0) != '[' || sub != "test" ){
+            std::cout << "\nno test function for size 4 or greater" << endl;
+            return false;
+            }
+        }
+       // else{
+        std::cout << "\nno test function in general either first char or key word" << endl;
+        return false;
+       // }
     }
+    
     else{
         return true;
     }
-    return false;
+    //return false;
     //if -e check file directory exits, deafult
     //if -f check if file/directory exist and is regular file
     //if -d checks if file/directory exists and is a directory
@@ -173,8 +184,12 @@ void runCommands(ARGBase* root){//tokens are in tree form
     //root->can_execute();
     char** cmnd = create_char_array(root->getARGValue());
     std::cout << "THIS IS CMND " << cmnd[0] << endl;
-    // if ( runTest();
-   std::cout <<  eval(cmnd) ;
+     if ( !runTest(root->getARGValue())) {
+
+        cout << "\nno test here in run cmnds check\n";
+        cout << runTest(root->getARGValue()) << " this is failure for test func\n";
+     }
+    cout <<  eval(cmnd);
     // if( eval(cmnd) > 0 )
     //     cout << "error";
 
