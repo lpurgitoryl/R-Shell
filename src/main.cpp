@@ -171,6 +171,7 @@ void runCommands(ARGBase* root){//tokens are in tree form
         //     runCommands(root->get_left());
         // }
         root->can_execute();
+        
         // if(!root->get_right()){
         //     runCommands(root->get_right());
         // }
