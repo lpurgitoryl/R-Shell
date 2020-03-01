@@ -2,6 +2,9 @@
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
 #include "../header/executor.h"
 
@@ -18,11 +21,11 @@ bool runTest(string test){ // true = 0, false = 1
   
    // cout << "test size" << test.size() << endl;
      if(test.size() >= 4){
-            cout << "greater than 4" << endl;
+         //   cout << "greater than 4" << endl;
             string sub = test.substr(0, 4);
-            std::cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
+        //    std::cout << "this is subtr->" << sub << "<-" << endl << "this is test string->" << test << "<-" << endl;
             if( sub != "test" && sub.at(0) != '['){
-            std::cout << "\nno test function for size 4 or greater" << endl;
+        //    std::cout << "\nno test function for size 4 or greater" << endl;
             return false;
             }
        // return true;
@@ -42,36 +45,69 @@ bool runTest(string test){ // true = 0, false = 1
 
     //cout << test.at(0);
 
-    //get flag
+    //get flag and file path
+    //bool noflag = false;
+
     if(test.at(0) == '['){ //flag will be at 2,3
         flag = test.substr(2,2);
-        int testSize = test.size() - 6;
-        restofString = test.substr(5, testSize );
-        cout <<  "this be flag " << flag << endl;
-        cout << "this is path* " << restofString << endl;
+        int testSize = test.size() - 8;
+        restofString = test.substr(5, testSize + 1 );
+        // if(flag != "-e" || flag != "-f" || flag != "-d"){
+        //     noflag = true;
+        //     testSize = test.size() - 4;
+        //     restofString = test.substr(2, testSize );
+        // }
+       // cout <<  "this be flag " << flag << endl;
+       // cout << "this is path*->" << restofString << "<-" << endl;
     }
     else{
         flag = test.substr(5,2);
         int testSize = test.size() - 6 ;
-        restofString = test.substr(7, testSize );
-        cout << "this is path " << restofString << endl;
+        restofString = test.substr(8, testSize );
+        // if(flag != "-e" || flag != "-f" || flag != "-d"){
+        //     noflag = true;
+        //     testSize = test.size() - 4;
+        //     restofString = test.substr(5, testSize );
+        // }
+       // cout << "this is path->" << restofString << "<-" << endl;
     }
 
     //end get flag
 
-    // int statvalue = stat(path.c_str(),&buf);
+    char * filePath = new char [restofString.length()+1];
+    std::strcpy (filePath, restofString.c_str());
+    
+    int statvalue = stat( filePath, &buff); //On success, zero is returned. On error, -1 is returned, and errno is set appropriately.
+    //char filePath = restofString.c_str() ;
+  
+
+    //cout << "this is stat value "<< statvalue << endl;
+    //cout << "this is stat value "<< stat( filePath, &buff) << endl;
+    //cout << stat( "names.txt" , &buff) << endl;
+    // if(statvalue < 0){
+    //    perror("no such file");
+    //    return false;
+    // }
 
     if(flag == "-e" ){
-        if(stat(restofString.c_str(), &buff) == 0)
-        {
-            return true;
+        if(statvalue < 0){
+            perror("no such file");
+            return false;
         }
+        //cout << "here"<< endl;
+            return true;  
     }
     else if ( flag == "-f"){
-
+        if(S_ISREG(buff.st_mode)){ //if zero its false
+            return true;
+        }
+        return false;
     }
     else if( flag == "-d"){
-
+         if(S_ISDIR(buff.st_mode)) {
+            return true;
+        }
+        return false;
     }
 
     else{
@@ -110,7 +146,7 @@ void runCommands(ARGBase* root){//tokens are in tree form
     // if( executed < 0 )
     // runCommands(cur->get_right());
 
-   std:: cout << "this is root " << root->getARGValue() << endl;
+   //std:: cout << "this is root " << root->getARGValue() << endl;
     //root->can_execute();
     //char** cmnd = create_char_array(root->getARGValue());
     //std::cout << "THIS IS CMND " << cmnd[0] << endl;
@@ -130,7 +166,14 @@ void runCommands(ARGBase* root){//tokens are in tree form
         }
 
     }else{
+        
+        if(!root->get_left()){
+            runCommands(root->get_left());
+        }
         root->can_execute();
+        if(!root->get_right()){
+            runCommands(root->get_right());
+        }
     }
     // if ( !runTest(root->getARGValue())) {
 
@@ -189,7 +232,7 @@ int main(){
     //    }
     //stack<ARGBase*>pull;
         input.create_tree_vector(temp);
-        cout << "this should run cmnd\n" << endl;
+        //cout << "this should run cmnd\n" << endl;
         //input.getRoot()->can_execute();
         runCommands(input.getRoot());
         //runTest(input.getRoot()->getARGValue() );

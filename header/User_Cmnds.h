@@ -128,7 +128,7 @@ class User_Cmnds : public ARGBase {
             }
             else if( childProcess == 0){
                 
-            std::cout << "this is process\n" << endl;
+           // std::cout << "this is process\n" << endl;
             if(execvp(*args, args) == -1){
                 perror("exec");
                 return 0; //false
@@ -151,10 +151,10 @@ class User_Cmnds : public ARGBase {
      bool can_execute(){//0 is false from eval , 1 is true
             char** test = create_char_array(this->ARGValue);
             if(eval(test) == 0){
-                cout << "0" << endl;
+               // cout << "0" << endl;
                 return false;
             }
-            cout << "1" << endl;
+            //cout << "1" << endl;
             return true;
     }
         
