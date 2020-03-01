@@ -148,13 +148,14 @@ class User_Cmnds : public ARGBase {
             //return childStatus;
     }
 
-     bool can_execute(){
+     bool can_execute(){//0 is false from eval , 1 is true
             char** test = create_char_array(this->ARGValue);
-            if(eval(test) > 0){
+            if(eval(test) == 0){
+                cout << "0" << endl;
                 return false;
             }
-            
-            return 1;
+            cout << "1" << endl;
+            return true;
     }
         
 

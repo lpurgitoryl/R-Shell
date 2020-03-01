@@ -89,15 +89,26 @@ void runCommands(ARGBase* root){//tokens are in tree form
     //root->can_execute();
     //char** cmnd = create_char_array(root->getARGValue());
     //std::cout << "THIS IS CMND " << cmnd[0] << endl;
-     if ( !runTest(root->getARGValue())) {
+    //checks if key word or bracket
+    string testKey = "";
+    if(root->getARGValue().size() >= 4){
+        testKey = root->getARGValue().substr(0,4);
+    }
+    if(root->getARGValue().at(0) == '[' || testKey == "test" ){
+        bool testVal = runTest(root->getARGValue());
 
-        cout << "\nno test here in run cmnds check\n";
-        cout << runTest(root->getARGValue()) << " this is failure for test func\n";
-     }
-     else if(runTest(root->getARGValue())){
-         cout << "(true)" << endl;
-         return;
-     }
+    }else{
+        root->can_execute();
+    }
+    // if ( !runTest(root->getARGValue())) {
+
+    //     cout << "\nno test here in run cmnds check\n";
+    //     cout << runTest(root->getARGValue()) << " this is failure for test func\n";
+    // }
+    // else if(runTest(root->getARGValue())){
+    //      cout << "(true)" << endl;
+    //      return;
+    // }
 
 
 return;
@@ -147,8 +158,8 @@ int main(){
     //stack<ARGBase*>pull;
         input.create_tree_vector(temp);
         cout << "this should run cmnd\n" << endl;
-        input.getRoot()->can_execute();
-        //runCommands(input.getRoot());
+        //input.getRoot()->can_execute();
+        runCommands(input.getRoot());
         //runTest(input.getRoot()->getARGValue() );
        // ARGBase* start = temp.at(0);
      //  printInOrder(root);
