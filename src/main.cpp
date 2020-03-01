@@ -167,13 +167,13 @@ void runCommands(ARGBase* root){//tokens are in tree form
 
     }else{
         
-        if(!root->get_left()){
-            runCommands(root->get_left());
-        }
+        // if(!root->get_left()){
+        //     runCommands(root->get_left());
+        // }
         root->can_execute();
-        if(!root->get_right()){
-            runCommands(root->get_right());
-        }
+        // if(!root->get_right()){
+        //     runCommands(root->get_right());
+        // }
     }
     // if ( !runTest(root->getARGValue())) {
 
