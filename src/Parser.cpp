@@ -43,9 +43,9 @@ vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
             mirror.push_back(tokens.at(i));
         }
     }
-    for (int i = 0 ; i < mirror.size(); i++){
-        cout << mirror.at(i)->getARGValue();
-    }
+    // for (int i = 0 ; i < mirror.size(); i++){
+    //     cout << mirror.at(i)->getARGValue();
+    // } //loks like it only prints varibles
     //shunting yard
     // ((echo a || echo b) && echo c)
     // (echo c && (echo b || echo a))
@@ -113,12 +113,12 @@ vector <ARGBase*> Parser::infix_to_postfix(vector<ARGBase*>& tokens){
     //printing the  vector
     // (echo a || echo b) && echo c
     // echo c && (echo b || echo a)
-    cout << endl;
+    //cout << endl;
     //cout << "here" << endl;
-    for (int i = 0; i <vals.size(); i++){
-        cout << vals.at(i)->getARGValue();
-    }
-    cout << endl;
+    // for (int i = 0; i <vals.size(); i++){
+    //     cout << vals.at(i)->getARGValue();
+    // }
+    // cout << endl;
 
     // for (int i = 0; i <vals.size(); i++){
     //     reverse(vals.begin(), vals.end());
@@ -186,7 +186,7 @@ void Parser::create_tree_vector(vector <ARGBase*>& tokens){
         }
     }    
     root = tree.top();
-    printInOrder(root);
+    //printInOrder(root);
     //echo a || echo b && echo c
     //&&||echo a echo b echo c
     // echo a || echo b
@@ -238,7 +238,7 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
        cmdInput >> uptoSpace;
        if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n" && uptoSpace != "(" && uptoSpace != ")"){
        tokens.push_back(new User_Cmnds(uptoSpace));
-       cout << "value here is not a connector ->" << tokens.back()->getARGValue() << "<-" << endl;
+      // cout << "value here is not a connector ->" << tokens.back()->getARGValue() << "<-" << endl;
        }
        else if(uptoSpace == "&&"){
            tokens.push_back(new And());
@@ -271,10 +271,10 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 
        if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n"){
 
-       cout << "\nvalue here is not a connector ->" << uptoSpace << "<-" << endl;
+       //cout << "\nvalue here is not a connector ->" << uptoSpace << "<-" << endl;
            for ( int  i = 0; i < uptoSpace.size(); i++)
            {
-               cout << "this is the char->" << uptoSpace.at(i) << "<-\n" << endl;
+            //   cout << "this is the char->" << uptoSpace.at(i) << "<-\n" << endl;
 
                if ( uptoSpace.at(i) == '(')
                {
@@ -296,7 +296,7 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
            flag = false;
           if(!groupedValues.empty() )
                groupedValues.pop_back(); // gets rid of space at end
-             cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+             //cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
             
             tokens.push_back(new User_Cmnds(groupedValues));
 
@@ -316,7 +316,7 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 
            if(!groupedValues.empty() )
                groupedValues.pop_back(); // gets rid of space at end
-             cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+            // cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
              
              tokens.push_back(new User_Cmnds(groupedValues));
 
@@ -336,7 +336,7 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
 
            if(!groupedValues.empty() )
                groupedValues.pop_back(); // gets rid of space at end
-             cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+             //cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
              
              tokens.push_back(new User_Cmnds(groupedValues));
 
@@ -359,9 +359,9 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
      if( (flag == false) || (!groupedValues.empty()) ){
 
         if(!groupedValues.empty()){
-        cout << "\n this is the grouped value before pop->" << groupedValues << "<-" << endl;
+       // cout << "\n this is the grouped value before pop->" << groupedValues << "<-" << endl;
         groupedValues.pop_back(); // gets rid of space at end
-        cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
+        //cout << "\n this is the grouped value after pop->" << groupedValues << "<-" << endl;
         tokens.push_back(new User_Cmnds(groupedValues));
         }
 
@@ -372,8 +372,8 @@ void Parser::tokenize_grouping(istringstream& cmdInput ,  vector <ARGBase*>& tok
                 endParenth--;
                 }while(endParenth > 0);
             }
-        cout << "\n this is after all cmnds are proceesed \n";
-        cout << endl << tokens.back()->getARGValue() << endl;
+        //cout << "\n this is after all cmnds are proceesed \n";
+        //cout << endl << tokens.back()->getARGValue() << endl;
     }
 
 
@@ -409,21 +409,21 @@ vector<ARGBase*> Parser::parse(){
    // tokenize_each_input(cmdInput, tokens) ;
    tokenize_grouping(cmdInput, tokens);
 
-   cout << "_______________________________" << endl << "this is after tokenizing\n";
-    for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
-            cout << "this is token number: " << i << " and the value is " << endl;
-            cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
+  // cout << "_______________________________" << endl << "this is after tokenizing\n";
+    // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
+    //         cout << "this is token number: " << i << " and the value is " << endl;
+    //         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
         
-        }
+    // }
 
-    cout << tokens.size() << "<- this is size" << endl;
+   // cout << tokens.size() << "<- this is size" << endl;
     int indexComment = find_comment_index(tokens);
-    cout << "this is the comment location (-1 if NA):" << indexComment << endl; 
+    //cout << "this is the comment location (-1 if NA):" << indexComment << endl; 
     if(indexComment != -1){
       remove_comment(tokens, indexComment);
     }
 
-    cout << tokens.size() << "<- this is size" << endl;
+    //cout << tokens.size() << "<- this is size" << endl;
     // for(int i = 0; i < tokens.size(); i++){//tester for correct values in tokens
     //         cout << "this is token number: " << i << " and the value is " << endl;
     //         cout << "value here ->" << tokens.at(i)->getARGValue() << "<-" << endl;
