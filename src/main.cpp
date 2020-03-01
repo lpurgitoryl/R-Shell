@@ -30,28 +30,53 @@ bool runTest(string test){ // true = 0, false = 1
 
     else if( (test.at(0) == '[' && test.at(test.size() -1 ) != ']') || (test.at(0) != '[' && test.at(test.size() -1 ) != ']') ){
 
-        std::cout << "\nno test function in general either because of first char or key word" << endl;
+        std::cout << "\nno test function in general either because of bracket mismatch or key word missing " << endl;
         return false;
        // }
     }
-    // at this point it is a test cmnd
+    // at this point it is a test cmnd bc it passed backet/ test check
     struct stat buff;
 
     string flag = "";
     string restofString = "";
 
     //cout << test.at(0);
+
+    //get flag
     if(test.at(0) == '['){ //flag will be at 2,3
         flag = test.substr(2,2);
-        restofString = test.substr(5, test.size() - 2);
-        //cout <<  "this be flag " << flag << endl;
+        int testSize = test.size() - 6;
+        restofString = test.substr(5, testSize );
+        cout <<  "this be flag " << flag << endl;
+        cout << "this is path* " << restofString << endl;
     }
-   
+    else{
+        flag = test.substr(5,2);
+        int testSize = test.size() - 6 ;
+        restofString = test.substr(7, testSize );
+        cout << "this is path " << restofString << endl;
+    }
+
+    //end get flag
+
+    // int statvalue = stat(path.c_str(),&buf);
+
     if(flag == "-e" ){
         if(stat(restofString.c_str(), &buff) == 0)
         {
             return true;
         }
+    }
+    else if ( flag == "-f"){
+
+    }
+    else if( flag == "-d"){
+
+    }
+
+    else{
+        cout << "\nno flag\n";
+        return false;
     }
     
     //if -e check file directory exits, deafult
@@ -96,6 +121,13 @@ void runCommands(ARGBase* root){//tokens are in tree form
     }
     if(root->getARGValue().at(0) == '[' || testKey == "test" ){
         bool testVal = runTest(root->getARGValue());
+
+        if(testVal){
+            cout << "(true)" << endl;
+        }
+        else{
+            cout << "(false)" << endl;
+        }
 
     }else{
         root->can_execute();
