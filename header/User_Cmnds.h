@@ -138,6 +138,7 @@ class User_Cmnds : public ARGBase {
             else {
                 //wait child
                 childProcessID = wait(&childStatus); //
+                wait(NULL);
                 // use wifext,
             //   if(  WIFEXITED(childStatus) > 0){
             //          return childStatus;

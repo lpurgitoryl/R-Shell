@@ -12,9 +12,8 @@ class And : public Connector {
 	//void evaluate(){
 	bool can_execute(){
 		if (left->can_execute()){ //first checks if left can execute
-			if(right->can_execute()){ //thens checks right
-				return 0;//true
-			}
+			 //thens checks right
+				return right->can_execute();//true
 		}
 	return 1; //return false because left or right is not true
 	}	
