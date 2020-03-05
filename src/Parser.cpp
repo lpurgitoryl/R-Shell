@@ -158,7 +158,7 @@ void Parser::create_tree_vector(vector <ARGBase*>& tokens){
     stack<ARGBase*>tree;
     
     for (int i = 0; i < tokens.size(); i++){
-        if(tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != "||"){
+        if(tokens.at(i)->getARGValue() != "&&" && tokens.at(i)->getARGValue() != "||" && tokens.at(i)->getARGValue() != ";"){
             tree.push(tokens.at(i));
         }
         else if (i == tokens.size()-1){

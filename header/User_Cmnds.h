@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <wait.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -131,6 +132,7 @@ class User_Cmnds : public ARGBase {
            // std::cout << "this is process\n" << endl;
             if(execvp(*args, args) == -1){
                 perror("exec");
+                
                 return 0; //false
             } ; //execute
                 
@@ -139,6 +141,7 @@ class User_Cmnds : public ARGBase {
                 //wait child
                 childProcessID = wait(&childStatus); //
                 wait(NULL);
+    
                 // use wifext,
             //   if(  WIFEXITED(childStatus) > 0){
             //          return childStatus;

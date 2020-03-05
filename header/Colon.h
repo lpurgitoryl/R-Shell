@@ -12,7 +12,7 @@ class Colon : public Connector {
 	//void evaluate(){}
 	bool can_execute(){
 	
-		return 0; //colon executes each side no matter what
+		return left->can_execute() && right->can_execute(); //colon executes each side no matter what
 		
 	}
 };
