@@ -7,7 +7,9 @@ class Pipe : public Connector {
 
 	public:
 	
-	Pipe(ARGBase* left, ARGBase* right) : Connector(left, right, "|") {}
+	Pipe(ARGBase* left, ARGBase* right) :
+	Connector(left, right, "|") {}
+	
 	Pipe(): Connector("|"){}
 	//void evaluate(){
 	bool can_execute(){

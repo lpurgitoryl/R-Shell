@@ -5,8 +5,13 @@
 
 class InputRedirection : public Connector{
 
-    InputRedirection(ARGBase* left, ARGBase* right) : Connector(left, right, "<"){}
+    public:
+
+    InputRedirection(ARGBase* left, ARGBase* right) : 
+    Connector(left, right, "<"){}
+
     InputRedirection() : Connector("<"){}
+    
     bool can_execute(){
         return true; 
     }

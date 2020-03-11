@@ -236,7 +236,7 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
  do{
        string uptoSpace;
        cmdInput >> uptoSpace;
-       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n" && uptoSpace != "(" && uptoSpace != ")"){
+       if (uptoSpace !="$" && uptoSpace != "&&" && uptoSpace != "||" && uptoSpace != ";" && uptoSpace != "" && uptoSpace != "\n" && uptoSpace != "(" && uptoSpace != ")" && uptoSpace != ">" && uptoSpace != "<" && uptoSpace != ">>" && uptoSpace != "|"){
        tokens.push_back(new User_Cmnds(uptoSpace));
       // cout << "value here is not a connector ->" << tokens.back()->getARGValue() << "<-" << endl;
        }
@@ -246,6 +246,19 @@ void Parser::tokenize_each_input(istringstream& cmdInput  , vector <ARGBase*>& t
        else if(uptoSpace == "||"){
            tokens.push_back(new Or());
        }
+       else if (uptoSpace == ">"){
+           tokens.push_back(new Oneoutputredirection() );
+       }
+       else if (uptoSpace == "<"){
+           tokens.push_back(new InputRedirection() );
+       }
+       else if(uptoSpace == ">>"){
+           tokens.push_back(new Twooutputredirection() );
+       }
+       else if (uptoSpace == "|"){
+           tokens.push_back( new Pipe() );
+       }
+       
        else if(uptoSpace == ";"){
            tokens.push_back(new Colon());
        }

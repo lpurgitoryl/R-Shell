@@ -8,6 +8,11 @@
 #include "User_Cmnds.h"
 #include "Connector.h"
 #include "Parenthesis.h"
+#include "Oneoutputredirection.h"
+#include "Twooutputredirection.h"
+#include "InputRedirection.h"
+#include "Pipe.h"
+
 
 //#include "executor.h"
 

@@ -5,8 +5,13 @@
 
 class Twooutputredirection : public Connector{
 
-    Twooutputredirection(ARGBase* left, ARGBase* right) : Connector(left, right, ">>"){}
+    public: 
+
+    Twooutputredirection(ARGBase* left, ARGBase* right) :
+    Connector(left, right, ">>"){}
+
     Twooutputredirection() : Connector(">>"){}
+    
     bool can_execute(){
         return true; 
     }
